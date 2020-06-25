@@ -40,7 +40,7 @@ jsonpointer==2.0
 jsonschema==2.6.0
 Mako==1.0.7
 MarkupSafe==1.0
-marshmallow==1.2.3
+marshmallow==2.15.1
 meld3==1.0.2
 monotonic==1.5
 msgpack==0.5.6
