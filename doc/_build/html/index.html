@@ -1,0 +1,369 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kinx : ixMonitor - REST API documentation &mdash; ixminitor-web-gateway 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/myStyle.css" type="text/css" />
+    <link rel="index" title="색인" href="genindex.html" />
+    <link rel="search" title="검색" href="search.html" />
+    <link rel="next" title="token API" href="token.html" /> 
+
+  
+  <script src="_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="#" class="icon icon-home"> ixminitor-web-gateway
+          
+
+          
+            
+            <img src="_static/gabia_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="token.html">token API</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gateway/web-gateway.html">Web-Gateway Rest API</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="#">ixminitor-web-gateway</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="#">Docs</a> &raquo;</li>
+        
+      <li>Kinx : ixMonitor - REST API documentation</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="kinx-ixmonitor-rest-api-documentation">
+<h1>Kinx : ixMonitor - REST API documentation<a class="headerlink" href="#kinx-ixmonitor-rest-api-documentation" title="제목 주소">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="제목 주소">¶</a></h2>
+<p>REST API 개발</p>
+<ul class="simple">
+<li>Resource 기반 URL</li>
+<li>API 에러는 HTTP status code 사용</li>
+<li>HTTPS 사용</li>
+<li>HTTP Basic Auth &amp; auth token 인증</li>
+<li>요청 및 응답은 json만 지원</li>
+</ul>
+</div>
+<div class="section" id="api-design">
+<h2>API Design 보안 관련 고려사항<a class="headerlink" href="#api-design" title="제목 주소">¶</a></h2>
+<ul class="simple">
+<li>XSS<ul>
+<li>HTML template을 전혀 사용하지 않는 백엔드라, 기본적으로 문제 안됨.</li>
+<li>HTML Escape는 flask Jinja2에서 알아서 처리</li>
+<li>attribute의 경우, 따옴표로 escape 처리<ul>
+<li><strong>&quot;{{ abc }}&quot;</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+<li>CSRF<ul>
+<li>계정 인증에 쿠키를 사용하지 않음.</li>
+<li>expire 시간이 있는 token을 basic auth로 사용하여 위험 제거(디폴드 10분 설정)</li>
+</ul>
+</li>
+<li>JSON Security<ul>
+<li>CSRF를 이용한 javascript code로 json 데이터를 덤프할 수 있는 문제</li>
+<li>javascript을 경우, 데이터 최상위에 <strong>{...}</strong> 가 있으면 에러라는 사실을 이용,
+모든 json 응답은 list라 하여도 list로 바로 시작하지 않고,
+<strong>{ 'a': [... ] }</strong> 형태로 한단계 감싸서 위협 제거</li>
+<li>기본적으로 token으로 인증하고, 쿠키를 사용하지 않아 CSRF가 문제가 안되기 때문에 괜찮으나,
+이러한 코딩 습관을 가지는 것이 중요</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="contents">
+<h2>Contents<a class="headerlink" href="#contents" title="제목 주소">¶</a></h2>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="token.html">token API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="token.html#api-contents">API Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="gateway/web-gateway.html">Web-Gateway Rest API</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="gateway/basic.html">Basic API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gateway/metrics.html">Metrics API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gateway/logs.html">Logs API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gateway/customs.html">Customs API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="gateway/events.html">Events API</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</div>
+<div class="section" id="authentication">
+<h2>Authentication<a class="headerlink" href="#authentication" title="제목 주소">¶</a></h2>
+<ul>
+<li><p class="first">인증후 계정을 이용 <a class="reference external" href="http://jmnote.com/wiki/HTTP_%EA%B8%B0%EB%B3%B8_%EC%9D%B8%EC%A6%9D">HTTP Basic Auth</a> <a class="footnote-reference" href="#id3" id="id1">[1]</a> 로
+auth token을 발급 받음</p>
+<ul>
+<li><p class="first"><a class="reference internal" href="token.html#get--api-token" title="GET /api/token"><code class="xref http http-get docutils literal notranslate"><span class="pre">GET</span> <span class="pre">/api/token</span></code></a></p>
+<ul>
+<li><p class="first">Authorization: Basic [ <strong>[ixmonitor계정]:[api-key비번]</strong> 문자열을 <em>base64</em> encoding한 literal ]</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">즉</span><span class="p">,</span> <span class="n">이런</span> <span class="n">형태임</span>
+<span class="n">Authorization</span><span class="p">:</span> <span class="n">Basic</span> <span class="n">QWxhZGRpbjpvcGVuIHNlc2FtZQ</span><span class="o">==</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p class="first">발급 받은 token으로 HTTP basic auth로 각 리소스에 접근</p>
+<ul>
+<li><p class="first">Authorization Header의 <em>user</em> 는 반드시 <strong>ixmonitor계정</strong>, <em>password</em> 에 발급받은 <em>token</em></p>
+<ul>
+<li><p class="first">Authorization: Basic [ <strong>[ixmonitor계정]:[token]</strong> 문자열을 <em>base64</em> encoding한 literal ]</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">즉</span><span class="p">,</span> <span class="n">이런</span> <span class="n">형태임</span>
+<span class="n">Authorization</span><span class="p">:</span> <span class="n">Basic</span> <span class="n">QWxhZGRpbjpvcGVuIHNlc2FtZQ</span><span class="o">==</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="section" id="error">
+<h2>Error 요약<a class="headerlink" href="#error" title="제목 주소">¶</a></h2>
+<p>아래의 몇가지 HTTP status code를 사용. API 추가에 따라 추가될 수 있음</p>
+<ul class="simple">
+<li>200 OK: API 성공 (GET, PUT, PATCH 등 일반적인 성공)</li>
+<li>201 Created: 새 리소스 생성 성공 (POST 및 PUT시)</li>
+<li>204 No Content: 리소스 삭제 성공 (DELETE시)</li>
+<li>400 Bad Request: 요청 파라미터 오류</li>
+<li>401 Unauthorized: Token이 expire되거나, 올바르지 않음</li>
+<li>404 Not Found: 해당 리소스가 없음</li>
+<li>405 Method Not Allowed: 해당 http method를 지원하지 않음 (get만 되고, post나 put 불가 등)</li>
+<li>409 Conflict: 동일 리소스가 이미 있음 (post시 이미 존재하여 추가 불가시)</li>
+<li>500 Internal Server Error: API 내부 Service 오류</li>
+<li>520 Unknown Error: 알수 없음</li>
+</ul>
+<p>json의 message 부분에 에러 스트링을 포함({ &quot;message&quot;: &quot;No Data&quot; })</p>
+<p>method별 가능 response code:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">*</span> <span class="n">GET</span>
+
+  <span class="o">*</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">500</span>
+
+<span class="o">*</span> <span class="n">POST</span>
+
+  <span class="o">*</span> <span class="mi">201</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">409</span><span class="p">,</span> <span class="mi">500</span>
+
+<span class="o">*</span> <span class="n">PUT</span>
+
+  <span class="o">*</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">201</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">500</span>
+
+<span class="o">*</span> <span class="n">PATCH</span>
+
+  <span class="o">*</span> <span class="mi">200</span><span class="p">,</span> <span class="mi">400</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">500</span>
+
+<span class="o">*</span> <span class="n">DELETE</span>
+
+  <span class="o">*</span> <span class="mi">204</span><span class="p">,</span> <span class="mi">401</span><span class="p">,</span> <span class="mi">404</span><span class="p">,</span> <span class="mi">405</span><span class="p">,</span> <span class="mi">500</span>
+</pre></div>
+</div>
+<p><a class="reference external" href="http://www.restapitutorial.com/httpstatuscodes.html#">일반적으로 REST API에서 사용하는 HTTP Status Code 참고</a>
+(별 표시된 코드가 일반적으로 REST에서 쓰는 top 10 코드임)</p>
+</div>
+<div class="section" id="id2">
+<h2>검색<a class="headerlink" href="#id2" title="제목 주소">¶</a></h2>
+<p><a class="reference internal" href="search.html"><span class="std std-ref">검색 페이지</span></a></p>
+<p class="rubric">각주</p>
+<table class="docutils footnote" frame="void" id="id3" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="#id1">[1]</a></td><td>HTTP 기본 인증.
+&quot;<strong>username:password</strong>&quot; 형태로 스트링을 만들고,
+해당 스트링을 base64로 인코딩 후,
+HTTP의 <em>Authorization</em> 헤더에 &quot;<strong>Basic</strong> &quot; <em>뒤에</em> 인코딩한 스트링을 <em>붙여서</em> 전송.
+<a class="reference external" href="http://en.wikipedia.org/wiki/Basic_access_authentication">HTTP Basic Auth 상세 설명(Client 부분 참고)</a></td></tr>
+</tbody>
+</table>
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="token.html" class="btn btn-neutral float-right" title="token API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, kde by kinx.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.1',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="_static/jquery.js"></script>
+      <script type="text/javascript" src="_static/underscore.js"></script>
+      <script type="text/javascript" src="_static/doctools.js"></script>
+      <script type="text/javascript" src="_static/translations.js"></script>
+
+  
+
+  <script type="text/javascript" src="_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

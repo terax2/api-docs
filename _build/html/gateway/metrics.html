@@ -1,0 +1,2023 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ixMonitor - Metrics API &mdash; ixminitor-web-gateway 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="ixMonitor - Logs API" href="logs.html" />
+    <link rel="prev" title="ixMonitor - Basic API" href="basic.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ixminitor-web-gateway
+          
+
+          
+            
+            <img src="../_static/gabia_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../token.html">token API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="web-gateway.html">Web-Gateway Rest API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Metrics API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-list">API List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-contents">API Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Logs API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customs.html">Customs API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events API</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ixminitor-web-gateway</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="web-gateway.html">Web-Gateway Rest API</a> &raquo;</li>
+        
+      <li>ixMonitor - Metrics API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ixmonitor-metrics-api">
+<h1>ixMonitor - Metrics API<a class="headerlink" href="#ixmonitor-metrics-api" title="제목 주소">¶</a></h1>
+<div class="section" id="api-list">
+<h2>API List<a class="headerlink" href="#api-list" title="제목 주소">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Endpoint</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="#get-metrics-hosts"><span class="std std-ref">GET /api/metrics/api-key/hosts</span></a></td>
+<td>&lt;api-key&gt; 값으로 등록된 호스트 정보 얻기</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#get-metrics-list"><span class="std std-ref">GET /api/metrics/hid/list</span></a></td>
+<td>&lt;hid&gt; 값으로 등록된 메트릭 정보 얻기</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#get-metrics-last"><span class="std std-ref">GET /api/metrics/hid/last</span></a></td>
+<td>&lt;hid&gt; 값으로 마지막 값 얻기</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#get-metrics-dps"><span class="std std-ref">GET /api/metrics/hid/metric</span></a></td>
+<td>&lt;hid&gt;/&lt;metric&gt; 수집된 해당 metric 값 얻기</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#get-metrics-proc-last"><span class="std std-ref">GET /api/metrics/hid/proc/last</span></a></td>
+<td>&lt;hid&gt; process 별 metric 마지막 값 얻기</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#get-metrics-proc-dps"><span class="std std-ref">GET /api/metrics/hid/proc/metric</span></a></td>
+<td>&lt;hid&gt;/proc/&lt;metric&gt; process 별 수집된 해당 metric 값 얻기</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#get-metrics-alert"><span class="std std-ref">GET /api/metrics/hid/alert</span></a></td>
+<td>&lt;hid&gt; 메트릭에 설정된 alert 정보 얻기</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#post-metrics-alert"><span class="std std-ref">POST /api/metrics/hid/alert</span></a></td>
+<td>&lt;hid&gt; 메트릭에 새로운 alert 정보 추가 및 변경하기</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#delete-metrics-alert"><span class="std std-ref">DELETE /api/metrics/hid/alert</span></a></td>
+<td>&lt;hid&gt; 메트릭에 기존 alert 정보 삭제하기</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="api-contents">
+<h2>API Contents<a class="headerlink" href="#api-contents" title="제목 주소">¶</a></h2>
+<span class="target" id="get-metrics-hosts"></span><dl class="get">
+<dt id="get--api-metrics-api-key-hosts">
+<code class="descname">GET </code><code class="descname">/api/metrics/api-key/hosts</code><a class="headerlink" href="#get--api-metrics-api-key-hosts" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key&gt; 값으로 등록된 호스트 정보 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/7E717E82ED7FB134/hosts?count=20&amp;page=1</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;hosts&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-23T15:47:00+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_value&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;cpu&quot;</span><span class="p">:</span> <span class="mf">0.9</span><span class="p">,</span>
+          <span class="nt">&quot;disk&quot;</span><span class="p">:</span> <span class="mf">17.45</span><span class="p">,</span>
+          <span class="nt">&quot;loadavg&quot;</span><span class="p">:</span> <span class="mf">5.5</span><span class="p">,</span>
+          <span class="nt">&quot;mem&quot;</span><span class="p">:</span> <span class="mf">63.48</span><span class="p">,</span>
+          <span class="nt">&quot;network&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;inbps&quot;</span><span class="p">:</span> <span class="mi">20528</span><span class="p">,</span>
+            <span class="nt">&quot;outbps&quot;</span><span class="p">:</span> <span class="mi">33120</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;os_system&quot;</span><span class="p">:</span> <span class="s2">&quot;Linux&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;CCA11FCF-87FC-4F0B-A1C0-E37C586CE6B7&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;test-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-23T15:46:39+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_value&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;disk&quot;</span><span class="p">:</span> <span class="mf">9.4</span><span class="p">,</span>
+          <span class="nt">&quot;loadavg&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;mem&quot;</span><span class="p">:</span> <span class="mf">2.95</span><span class="p">,</span>
+          <span class="nt">&quot;network&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;inbps&quot;</span><span class="p">:</span> <span class="mi">184</span><span class="p">,</span>
+            <span class="nt">&quot;outbps&quot;</span><span class="p">:</span> <span class="mi">1176</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;os_system&quot;</span><span class="p">:</span> <span class="s2">&quot;Linux&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;agent&quot;</span><span class="p">:</span> <span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;CB7A2A6E-102A-414C-8DBB-80AFCDC8C4FD&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_date&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-23T15:46:31+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_value&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;cpu&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+          <span class="nt">&quot;disk&quot;</span><span class="p">:</span> <span class="mf">2.2</span><span class="p">,</span>
+          <span class="nt">&quot;loadavg&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;mem&quot;</span><span class="p">:</span> <span class="mf">7.06</span><span class="p">,</span>
+          <span class="nt">&quot;network&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;inbps&quot;</span><span class="p">:</span> <span class="mi">23040</span><span class="p">,</span>
+            <span class="nt">&quot;outbps&quot;</span><span class="p">:</span> <span class="mi">7456</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;os_system&quot;</span><span class="p">:</span> <span class="s2">&quot;Linux&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="s2">&quot;1/1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">3</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>count</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 페이지당 출력 갯수</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">20</span></code>.</li>
+</ul>
+</li>
+<li><strong>page</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 페이지중 현재페이지 (1/3)</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">1</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-metrics-list"></span><dl class="get">
+<dt id="get--api-metrics-hid-list">
+<code class="descname">GET </code><code class="descname">/api/metrics/hid/list</code><a class="headerlink" href="#get--api-metrics-hid-list" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt; 값으로 등록된 메트릭 정보 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/list?metric=cpu</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;metrics&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;CPU&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="p">[</span>
+        <span class="s2">&quot;cpu_t&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cpu_0&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cpu_1&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cpu_2&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;cpu_3&quot;</span>
+      <span class="p">],</span>
+      <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;guest&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;idle&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;irq&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;nice&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;softirq&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;steal&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="s2">&quot;%&quot;</span>
+      <span class="p">}</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>device</strong> 해당서버에서 사용되는 디바이스</li>
+<li><strong>metric</strong> 해당 디바이스에서 사용되는 메트릭과 메트릭의 단위 (메트릭명:단위)</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>metric</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 메트릭 선택</li>
+<li>(cpu/mem/disk/diskio/network/system/port/custom/swap/proc_cpu/proc_mem/proc_diskio/syslog/applog) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (전체출력)</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-metrics-last"></span><dl class="get">
+<dt id="get--api-metrics-hid-last">
+<code class="descname">GET </code><code class="descname">/api/metrics/hid/last</code><a class="headerlink" href="#get--api-metrics-hid-last" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt; 값으로 마지막 값 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/last</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;last&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;cpu&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu_0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;guest&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;idle&quot;</span><span class="p">:</span> <span class="mf">99.5</span><span class="p">,</span>
+            <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;irq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.5</span><span class="p">,</span>
+            <span class="nt">&quot;softirq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;steal&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+            <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.4</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu_1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;guest&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;idle&quot;</span><span class="p">:</span> <span class="mi">99</span><span class="p">,</span>
+            <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mf">0.2</span><span class="p">,</span>
+            <span class="nt">&quot;irq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+            <span class="nt">&quot;softirq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;steal&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+            <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.5</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu_2&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;guest&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;idle&quot;</span><span class="p">:</span> <span class="mf">98.7</span><span class="p">,</span>
+            <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;irq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">1.2</span><span class="p">,</span>
+            <span class="nt">&quot;softirq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;steal&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+            <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.6</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu_3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;guest&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;idle&quot;</span><span class="p">:</span> <span class="mf">98.9</span><span class="p">,</span>
+            <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+            <span class="nt">&quot;irq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+            <span class="nt">&quot;softirq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;steal&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+            <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.7</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu_t&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;guest&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;guest_nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;idle&quot;</span><span class="p">:</span> <span class="mi">99</span><span class="p">,</span>
+            <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+            <span class="nt">&quot;irq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;nice&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+            <span class="nt">&quot;softirq&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;steal&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.3</span><span class="p">,</span>
+            <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.5</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;custom&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cmd.ls&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;28&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;cmd.test&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;28&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;host.ls&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;28&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;python.test&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;result&quot;</span><span class="p">:</span> <span class="s2">&quot;28&quot;</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;disk&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;vda1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">41173176320</span><span class="p">,</span>
+            <span class="nt">&quot;fstype&quot;</span><span class="p">:</span> <span class="s2">&quot;ext4&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;rw&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mountpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;/&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">20.8</span><span class="p">,</span>
+            <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">51976970240</span><span class="p">,</span>
+            <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">10787016704</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;vdb1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">42978942976</span><span class="p">,</span>
+            <span class="nt">&quot;fstype&quot;</span><span class="p">:</span> <span class="s2">&quot;ext4&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mode&quot;</span><span class="p">:</span> <span class="s2">&quot;rw&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;mountpoint&quot;</span><span class="p">:</span> <span class="s2">&quot;/DBdata&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">14.1</span><span class="p">,</span>
+            <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">52709421056</span><span class="p">,</span>
+            <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">7029399552</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;diskio&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;vda&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;disk_iops&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;io_time&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&quot;read_bytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_mergeds&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_sectors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_time&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;write_bytes&quot;</span><span class="p">:</span> <span class="mi">561152</span><span class="p">,</span>
+            <span class="nt">&quot;write_count&quot;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
+            <span class="nt">&quot;write_mergeds&quot;</span><span class="p">:</span> <span class="mi">91</span><span class="p">,</span>
+            <span class="nt">&quot;write_sectors&quot;</span><span class="p">:</span> <span class="mi">1096</span><span class="p">,</span>
+            <span class="nt">&quot;write_time&quot;</span><span class="p">:</span> <span class="mi">4</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;vda1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;disk_iops&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+            <span class="nt">&quot;io_time&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&quot;read_bytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_mergeds&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_sectors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_time&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;write_bytes&quot;</span><span class="p">:</span> <span class="mi">561152</span><span class="p">,</span>
+            <span class="nt">&quot;write_count&quot;</span><span class="p">:</span> <span class="mi">41</span><span class="p">,</span>
+            <span class="nt">&quot;write_mergeds&quot;</span><span class="p">:</span> <span class="mi">91</span><span class="p">,</span>
+            <span class="nt">&quot;write_sectors&quot;</span><span class="p">:</span> <span class="mi">1096</span><span class="p">,</span>
+            <span class="nt">&quot;write_time&quot;</span><span class="p">:</span> <span class="mi">4</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;vdb&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;disk_iops&quot;</span><span class="p">:</span> <span class="mi">13</span><span class="p">,</span>
+            <span class="nt">&quot;io_time&quot;</span><span class="p">:</span> <span class="mi">192</span><span class="p">,</span>
+            <span class="nt">&quot;read_bytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_mergeds&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_sectors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_time&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;write_bytes&quot;</span><span class="p">:</span> <span class="mi">4882432</span><span class="p">,</span>
+            <span class="nt">&quot;write_count&quot;</span><span class="p">:</span> <span class="mi">394</span><span class="p">,</span>
+            <span class="nt">&quot;write_mergeds&quot;</span><span class="p">:</span> <span class="mi">165</span><span class="p">,</span>
+            <span class="nt">&quot;write_sectors&quot;</span><span class="p">:</span> <span class="mi">9536</span><span class="p">,</span>
+            <span class="nt">&quot;write_time&quot;</span><span class="p">:</span> <span class="mi">208</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;vdb1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;disk_iops&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+            <span class="nt">&quot;io_time&quot;</span><span class="p">:</span> <span class="mi">192</span><span class="p">,</span>
+            <span class="nt">&quot;read_bytes&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_count&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_mergeds&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_sectors&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;read_time&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;write_bytes&quot;</span><span class="p">:</span> <span class="mi">4882432</span><span class="p">,</span>
+            <span class="nt">&quot;write_count&quot;</span><span class="p">:</span> <span class="mi">381</span><span class="p">,</span>
+            <span class="nt">&quot;write_mergeds&quot;</span><span class="p">:</span> <span class="mi">165</span><span class="p">,</span>
+            <span class="nt">&quot;write_sectors&quot;</span><span class="p">:</span> <span class="mi">9536</span><span class="p">,</span>
+            <span class="nt">&quot;write_time&quot;</span><span class="p">:</span> <span class="mi">208</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;mem&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">6577909760</span><span class="p">,</span>
+            <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">2753425408</span><span class="p">,</span>
+            <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">290369536</span><span class="p">,</span>
+            <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">2497429504</span><span class="p">,</span>
+            <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">366305280</span><span class="p">,</span>
+            <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">990486528</span><span class="p">,</span>
+            <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">62.32</span><span class="p">,</span>
+            <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">84869120</span><span class="p">,</span>
+            <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">356667392</span><span class="p">,</span>
+            <span class="nt">&quot;swap_free&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;swap_percent&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;swap_sin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;swap_sout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;swap_total&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;swap_used&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+            <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">5217009664</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;network&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;ens3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;dropin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;dropout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;errin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;errout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;inbps&quot;</span><span class="p">:</span> <span class="mi">20488</span><span class="p">,</span>
+            <span class="nt">&quot;inpps&quot;</span><span class="p">:</span> <span class="mi">100</span><span class="p">,</span>
+            <span class="nt">&quot;outbps&quot;</span><span class="p">:</span> <span class="mi">32872</span><span class="p">,</span>
+            <span class="nt">&quot;outpps&quot;</span><span class="p">:</span> <span class="mi">112</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;lo&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;dropin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;dropout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;errin&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;errout&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;inbps&quot;</span><span class="p">:</span> <span class="mi">124696</span><span class="p">,</span>
+            <span class="nt">&quot;inpps&quot;</span><span class="p">:</span> <span class="mi">811</span><span class="p">,</span>
+            <span class="nt">&quot;outbps&quot;</span><span class="p">:</span> <span class="mi">124696</span><span class="p">,</span>
+            <span class="nt">&quot;outpps&quot;</span><span class="p">:</span> <span class="mi">811</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dev&quot;</span><span class="p">:</span> <span class="s2">&quot;mysql&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span>
+          <span class="p">}</span>
+        <span class="p">},</span>
+        <span class="nt">&quot;port&quot;</span><span class="p">:</span> <span class="s2">&quot;3306&quot;</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;2020-06-23T16:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+            <span class="nt">&quot;bootime&quot;</span><span class="p">:</span> <span class="s2">&quot;2019-08-20T11:20:37+09:00&quot;</span><span class="p">,</span>
+            <span class="nt">&quot;conntrack_cnt&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+            <span class="nt">&quot;conntrack_max&quot;</span><span class="p">:</span> <span class="mi">262144</span><span class="p">,</span>
+            <span class="nt">&quot;load1&quot;</span><span class="p">:</span> <span class="mf">2.75</span><span class="p">,</span>
+            <span class="nt">&quot;load15&quot;</span><span class="p">:</span> <span class="mf">5.75</span><span class="p">,</span>
+            <span class="nt">&quot;load5&quot;</span><span class="p">:</span> <span class="mf">4.5</span><span class="p">,</span>
+            <span class="nt">&quot;n_cpu&quot;</span><span class="p">:</span> <span class="mi">4</span><span class="p">,</span>
+            <span class="nt">&quot;n_user&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+            <span class="nt">&quot;swappiness&quot;</span><span class="p">:</span> <span class="mi">60</span><span class="p">,</span>
+            <span class="nt">&quot;uptime&quot;</span><span class="p">:</span> <span class="mf">26628083.3</span>
+          <span class="p">}</span>
+        <span class="p">}</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>metric</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 메트릭 항목 선택 가능</li>
+<li>(cpu/mem/disk/diskio/network/system/port/custom/swap) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (전체출력)</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-metrics-dps"></span><dl class="get">
+<dt id="get--api-metrics-hid-metric">
+<code class="descname">GET </code><code class="descname">/api/metrics/hid/metric</code><a class="headerlink" href="#get--api-metrics-hid-metric" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt;/&lt;metric&gt; 수집된 해당 metric 값 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/mem?start=2020-06-22T10:00:00+09:00&amp;end=2020-06-22T12:00:00+09:00</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;2020-06-22T10:00:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1531650048</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7508078592</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1971515392</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5540085760</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1013780480</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.43</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240762880</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">538198016</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:01:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1531928576</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7507222528</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1971703808</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5539041280</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1013878784</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.44</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240766976</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">539054080</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:02:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1531940864</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7507062784</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1971867648</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5538717696</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1013972992</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.44</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240762880</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">539213824</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:03:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1531023360</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7508201472</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1972035584</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5539688448</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014063104</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.43</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240820224</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">538075136</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:04:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1531109376</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7508123648</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1972199424</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5539446784</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014165504</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.43</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240807936</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">538152960</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:05:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1541066752</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7500521472</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1972531200</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5531512832</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014272000</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.52</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240758784</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">545755136</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:06:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1544724480</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7495954432</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1972760576</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5526716416</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014370304</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.57</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240758784</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">550322176</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:07:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1544675328</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7495901184</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1972928512</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5526495232</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014456320</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.57</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240758784</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">550375424</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:08:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1543090176</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7494909952</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1973096448</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5525336064</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014550528</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.59</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240758784</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">551366656</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T10:09:31+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+        <span class="nt">&quot;active&quot;</span><span class="p">:</span> <span class="mi">1545179136</span><span class="p">,</span>
+        <span class="nt">&quot;available&quot;</span><span class="p">:</span> <span class="mi">7495331840</span><span class="p">,</span>
+        <span class="nt">&quot;buffers&quot;</span><span class="p">:</span> <span class="mi">321314816</span><span class="p">,</span>
+        <span class="nt">&quot;cached&quot;</span><span class="p">:</span> <span class="mi">1973260288</span><span class="p">,</span>
+        <span class="nt">&quot;free&quot;</span><span class="p">:</span> <span class="mi">5525594112</span><span class="p">,</span>
+        <span class="nt">&quot;inactive&quot;</span><span class="p">:</span> <span class="mi">1014644736</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">6.58</span><span class="p">,</span>
+        <span class="nt">&quot;shared&quot;</span><span class="p">:</span> <span class="mi">9048064</span><span class="p">,</span>
+        <span class="nt">&quot;slab&quot;</span><span class="p">:</span> <span class="mi">240758784</span><span class="p">,</span>
+        <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">8371113984</span><span class="p">,</span>
+        <span class="nt">&quot;used&quot;</span><span class="p">:</span> <span class="mi">550944768</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;mem&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 데이터 시작 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+</ul>
+</li>
+<li><strong>end</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 가져올 데이터 끝 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>. (현재시간)</li>
+</ul>
+</li>
+<li><strong>&lt;metric&gt;</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 메트릭 선택 가능</li>
+<li>(cpu/mem/disk/diskio/network/system/port/custom/swap) 중 택1</li>
+</ul>
+</li>
+<li><strong>aggr</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 메트릭 집계 데이타</li>
+<li>(5m/1h/1d) 중 택1 <code class="docutils literal notranslate"><span class="pre">5m</span></code>: 5분집계, <code class="docutils literal notranslate"><span class="pre">1h</span></code>: 1시간집계, <code class="docutils literal notranslate"><span class="pre">1d</span></code>: 1일집계</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</li>
+<li><strong>device</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> metric 별로 선택 가능한 device 값 선택</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">all</span></code>. (모든 device 출력)</li>
+</ul>
+</li>
+<li><strong>port</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 메트릭 항목이 <code class="docutils literal notranslate"><span class="pre">port</span></code> 일 경우 포트 번호 지정</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-metrics-proc-last"></span><dl class="get">
+<dt id="get--api-metrics-hid-proc-last">
+<code class="descname">GET </code><code class="descname">/api/metrics/hid/proc/last</code><a class="headerlink" href="#get--api-metrics-hid-proc-last" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt; process 별 metric 마지막 값 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/proc/last</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;proc_last&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;11414&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.8</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">184</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">73998336</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;alert_manager&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;16821&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">548319232</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;influxd&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;23251&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">7</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">1468104704</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;metric_recv&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;23377&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">76963840</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;java&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;27096&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.27</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">1527070720</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;mysqld&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;18870&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.17</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">417677312</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30206&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.17</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">20586496</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;redis-server&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;5172&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.13</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">26</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">11694080</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30203&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.13</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">19734528</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;6121&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">66555904</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30005&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">66551808</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30205&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">19787776</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;2981&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.07</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">67420160</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;11141&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.07</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">66772992</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;influxdb-relay&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;23318&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.07</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">8937472</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32550&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68468736</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_master_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;11136&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">23568384</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;supervisord&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;11134&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">17911808</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;12584&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">56840192</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32539&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68190208</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;supervisord&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32527&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">19972096</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32538&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">61923328</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;14604&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">66793472</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;11144&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">66093056</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;11143&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">67022848</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30207&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">19521536</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;jbd2/vda1-8&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;299&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_master_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32531&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">25378816</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32536&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">61956096</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32542&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68182016</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32551&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68206592</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;alert_manager&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;16820&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">531529728</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30210&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">19386368</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;12583&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">56664064</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;12580&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">55336960</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;jbd2/vdb1-8&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;26348&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;15643&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">65527808</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;systemd&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">5439488</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;kworker/u8:0&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;29155&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32544&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68624384</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;accounts-daemon&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;1037&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">3387392</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;systemd-logind&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;1035&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">4485120</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32549&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68169728</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30199&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">18317312</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[common-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30862&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">65773568</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;gunicorn:_worker_[Web-gateway]&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;32541&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">68239360</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;kworker/u8:1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;29898&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30208&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">20705280</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30204&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">20561920</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30211&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">20561920</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30202&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">20578304</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;systemd-journald&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;375&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">10035200</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;python&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;30209&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;proc_cpu&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_iops&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="nt">&quot;proc_mem&quot;</span><span class="p">:</span> <span class="mi">20344832</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;time&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-23T16:58:00+09:00&quot;</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>sort</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 프로세스 정렬기준 선택</li>
+<li>(proc_cpu/proc_mem/proc_diskio) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">proc_cpu</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-metrics-proc-dps"></span><dl class="get">
+<dt id="get--api-metrics-hid-proc-metric">
+<code class="descname">GET </code><code class="descname">/api/metrics/hid/proc/metric</code><a class="headerlink" href="#get--api-metrics-hid-proc-metric" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt;/proc/&lt;metric&gt; process 별 수집된 해당 metric 값 얻기</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/proc/proc_cpu?start=2020-06-12T15:00:00+09:00&amp;end=2020-06-12T15:10:00+09:00&amp;pid=23251</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">21</span><span class="p">,</span>
+    <span class="nt">&quot;dps&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;2020-06-22T15:08:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:07:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">2.27</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.66</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:02:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.11</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:02:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">38.07</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.28</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:09:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.43</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:00:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.37</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.08</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:08:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">37.13</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.13</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.01</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:03:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">37.8</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.2</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:01:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">37.37</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.09</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:07:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">35.5</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">10.53</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:01:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.47</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:04:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">38.47</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.12</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.42</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:10:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.09</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:09:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">36.47</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.13</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">10.81</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:05:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.37</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.01</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:06:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.6</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.04</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.14</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:00:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">37.83</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.2</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:04:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.03</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.09</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:06:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">36.23</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.15</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">10.72</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:03:00+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">0.4</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.02</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">0.1</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-22T15:05:30+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+          <span class="nt">&quot;iowait&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">39.1</span><span class="p">,</span>
+          <span class="nt">&quot;system&quot;</span><span class="p">:</span> <span class="mf">0.19</span><span class="p">,</span>
+          <span class="nt">&quot;child_user&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+          <span class="nt">&quot;user&quot;</span><span class="p">:</span> <span class="mf">11.54</span><span class="p">,</span>
+          <span class="nt">&quot;child_sys&quot;</span><span class="p">:</span> <span class="mi">0</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;23251&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;proc_cpu&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;name&quot;</span><span class="p">:</span> <span class="s2">&quot;influxd&quot;</span>
+    <span class="p">}</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 데이터 시작 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+</ul>
+</li>
+<li><strong>end</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 가져올 데이터 끝 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>. (현재시간)</li>
+</ul>
+</li>
+<li><strong>&lt;metric&gt;</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 메트릭 선택 가능</li>
+<li>(proc_cpu/proc_mem/proc_diskio) 중 택1</li>
+</ul>
+</li>
+<li><strong>pid</strong> (<em>int</em>) -- <ul>
+<li><strong>(필수)</strong> process-id</li>
+</ul>
+</li>
+<li><strong>aggr</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 메트릭 집계 데이타</li>
+<li>(5m/1h/1d) 중 택1 <code class="docutils literal notranslate"><span class="pre">5m</span></code>: 5분집계, <code class="docutils literal notranslate"><span class="pre">1h</span></code>: 1시간집계, <code class="docutils literal notranslate"><span class="pre">1d</span></code>: 1일집계</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-metrics-alert"></span><dl class="get">
+<dt id="get--api-metrics-hid-alert">
+<code class="descname">GET </code><code class="descname">/api/metrics/hid/alert</code><a class="headerlink" href="#get--api-metrics-hid-alert" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt; 메트릭에 설정된 alert 정보 얻기</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;alerts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;CPU&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;cpu_t&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;high&quot;</span><span class="p">:</span> <span class="mf">30.0</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;idle&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;middle&quot;</span><span class="p">:</span> <span class="mf">40.0</span><span class="p">,</span>
+        <span class="nt">&quot;reverse&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+        <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;DISK&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;vdb1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;high&quot;</span><span class="p">:</span> <span class="mf">80.0</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;middle&quot;</span><span class="p">:</span> <span class="mf">70.0</span><span class="p">,</span>
+        <span class="nt">&quot;reverse&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+        <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;MEM&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;high&quot;</span><span class="p">:</span> <span class="mf">85.0</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;percent&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;middle&quot;</span><span class="p">:</span> <span class="mf">75.0</span><span class="p">,</span>
+        <span class="nt">&quot;reverse&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+        <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;NETWORK&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ens3&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;high&quot;</span><span class="p">:</span> <span class="mf">1000000.0</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;inbps&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;middle&quot;</span><span class="p">:</span> <span class="mf">800000.0</span><span class="p">,</span>
+        <span class="nt">&quot;reverse&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+        <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;OFF&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;SYSTEM&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;high&quot;</span><span class="p">:</span> <span class="mf">30.0</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;middle&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;reverse&quot;</span><span class="p">:</span> <span class="s2">&quot;N&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+        <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>device</strong>  해당서버에서 사용되는 디바이스</li>
+<li><strong>metric</strong>  해당 디바이스에 모니터링 상세항목</li>
+<li><strong>reverse</strong> 모니터링 대상 값이 클수록 위험이면 'N', 작을수록 위험이면 'Y' 으로 일반적으로 'N' 으로 설정됨.</li>
+<li><strong>high</strong>    모니터링 대상 값이 위험레벨 값</li>
+<li><strong>middle</strong>  모니터링 대상 값이 경고레벨 값</li>
+<li><strong>detect_count</strong>  모니터링 대상 조건에 감지 횟수 (횟수 만큼 감지되면 알람 발생됨 - 지속적인 위험을 체크하기 위함)</li>
+<li><strong>send_interval</strong> 알람전송후 다시 전송될 최소한의 간격을 지정함. (기본값 3분)</li>
+<li><strong>send_day_max</strong>  알람 전송 횟수를 하루 최대 횟수 설정. (SMS, Email, Slack 등등)</li>
+<li><strong>sender_id</strong>     해당 알람을 전송 대상 목록이 정의된 ID 값</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="post-metrics-alert"></span><dl class="post">
+<dt id="post--api-metrics-hid-alert">
+<code class="descname">POST </code><code class="descname">/api/metrics/hid/alert</code><a class="headerlink" href="#post--api-metrics-hid-alert" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt; 메트릭에 새로운 alert 정보 추가 및 변경하기</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+<span class="na">body</span><span class="o">:</span> <span class="l">추가,수정 정보</span>
+
+{
+  &quot;CPU&quot;: [
+    {
+      &quot;detect_count&quot;: 3,
+      &quot;device&quot;: &quot;cpu_t&quot;,
+      &quot;high&quot;: 30.0,
+      &quot;metric&quot;: &quot;idle&quot;,
+      &quot;middle&quot;: 40.0,
+      &quot;reverse&quot;: &quot;Y&quot;,
+      &quot;send_day_max&quot;: 3,
+      &quot;send_interval&quot;: 180,
+      &quot;sender_id&quot;: 1
+    }
+  ],
+  &quot;DISK&quot;: [
+    {
+      &quot;detect_count&quot;: 3,
+      &quot;device&quot;: &quot;vdb1&quot;,
+      &quot;high&quot;: 80.0,
+      &quot;metric&quot;: &quot;percent&quot;,
+      &quot;middle&quot;: 70.0,
+      &quot;reverse&quot;: &quot;N&quot;,
+      &quot;send_day_max&quot;: 3,
+      &quot;send_interval&quot;: 180,
+      &quot;sender_id&quot;: 1
+    }
+  ]
+}
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="delete-metrics-alert"></span><dl class="delete">
+<dt id="delete--api-metrics-hid-alert">
+<code class="descname">DELETE </code><code class="descname">/api/metrics/hid/alert</code><a class="headerlink" href="#delete--api-metrics-hid-alert" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;hid&gt; 메트릭에 기존 alert 정보 삭제하기</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/api/metrics/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+<span class="na">body</span><span class="o">:</span> <span class="l">삭제정보</span>
+
+{
+  &quot;CPU&quot;: [
+    {
+      &quot;detect_count&quot;: 3,
+      &quot;device&quot;: &quot;cpu_t&quot;,
+      &quot;high&quot;: 30.0,
+      &quot;metric&quot;: &quot;idle&quot;,
+      &quot;middle&quot;: 40.0,
+      &quot;reverse&quot;: &quot;Y&quot;,
+      &quot;send_day_max&quot;: 3,
+      &quot;send_interval&quot;: 180,
+      &quot;sender_id&quot;: 1
+    }
+  ]
+}
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="logs.html" class="btn btn-neutral float-right" title="ixMonitor - Logs API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="basic.html" class="btn btn-neutral" title="ixMonitor - Basic API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, kde by kinx.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

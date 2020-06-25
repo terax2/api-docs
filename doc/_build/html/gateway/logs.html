@@ -1,0 +1,936 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ixMonitor - Logs API &mdash; ixminitor-web-gateway 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="next" title="ixMonitor - Customs API" href="customs.html" />
+    <link rel="prev" title="ixMonitor - Metrics API" href="metrics.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ixminitor-web-gateway
+          
+
+          
+            
+            <img src="../_static/gabia_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../token.html">token API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="web-gateway.html">Web-Gateway Rest API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Logs API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-list">API List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-contents">API Contents</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="customs.html">Customs API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="events.html">Events API</a></li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ixminitor-web-gateway</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="web-gateway.html">Web-Gateway Rest API</a> &raquo;</li>
+        
+      <li>ixMonitor - Logs API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ixmonitor-logs-api">
+<h1>ixMonitor - Logs API<a class="headerlink" href="#ixmonitor-logs-api" title="제목 주소">¶</a></h1>
+<div class="section" id="api-list">
+<h2>API List<a class="headerlink" href="#api-list" title="제목 주소">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Endpoint</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="#get-logs-loglist"><span class="std std-ref">GET /api/logs/api-key/loglist</span></a></td>
+<td>&lt;api-key&gt;로 등록된 호스트들의 로그대상 정보 얻기</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#get-logs-logs"><span class="std std-ref">GET /api/logs/api-key/logs/logs</span></a></td>
+<td>&lt;api-key/&lt;logs&gt; 로 등록된 호스트들의 로그 얻기</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#get-logs-aggr"><span class="std std-ref">GET /api/logs/api-key/logs/aggr</span></a></td>
+<td>&lt;api-key/&lt;logs&gt;/&lt;aggr&gt; 로 등록된 호스트들의 로그 집계</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#get-logs-alert"><span class="std std-ref">GET /api/logs/api-key/alert</span></a></td>
+<td>&lt;api-key&gt; 로그에 설정된 alert 정보 얻기</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="#post-logs-alert"><span class="std std-ref">POST /api/logs/api-key/alert</span></a></td>
+<td>&lt;api-key&gt; 로그에 새로운 alert 정보 추가 및 변경하기</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="#delete-logs-alert"><span class="std std-ref">DELETE /api/logs/api-key/alert</span></a></td>
+<td>&lt;api-key&gt; 로그에 기존 alert 정보 삭제하기</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="api-contents">
+<h2>API Contents<a class="headerlink" href="#api-contents" title="제목 주소">¶</a></h2>
+<span class="target" id="get-logs-loglist"></span><dl class="get">
+<dt id="get--api-logs-api-key-loglist">
+<code class="descname">GET </code><code class="descname">/api/logs/api-key/loglist</code><a class="headerlink" href="#get--api-logs-api-key-loglist" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key&gt;로 등록된 호스트들의 로그대상 정보 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/logs/7E717E82ED7FB134/loglist?hid=BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;loglist&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;kde-r1-dev&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;agent_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Log Daemon User ALL Closed&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;agent_status&quot;</span><span class="p">:</span> <span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;kinx-agent&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;/var/log/kinx-agent/kinx-agent.log&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_upt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-19T16:47:40&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;regi_dt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-02T14:48:54&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;agent_msg&quot;</span><span class="p">:</span> <span class="s2">&quot;Log Daemon User ALL Closed&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;agent_status&quot;</span><span class="p">:</span> <span class="s2">&quot;Online&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;syslog&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;filename&quot;</span><span class="p">:</span> <span class="s2">&quot;syslog&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;last_upt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-19T16:47:40&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;regi_dt&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-03-06T13:48:47&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>appname</strong>      로그 대상이 되는 어플리케이션 명</li>
+<li><strong>filename</strong>     로그 대상이 되는 어플리케이션에서 발생되는 로그파일</li>
+<li><strong>agent_status</strong> 현재 로그 에이전트 접속 상태</li>
+<li><strong>last_upt</strong>     마지막 로그 업데이트 일시</li>
+<li><strong>regi_dt</strong>      최초로 등록한 로그모니터링 일시</li>
+<li><strong>status</strong>       현재 로그에서 발생되는 로그알람 상태</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>hid</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> host-id</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (api-key에 등록된 서버 전체 출력)</li>
+</ul>
+</li>
+<li><strong>status</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 등록된 서버들의 status 값 입력</li>
+<li>(Online/Offline/ALL) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">Online</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-logs-logs"></span><dl class="get">
+<dt id="get--api-logs-api-key-logs-logs">
+<code class="descname">GET </code><code class="descname">/api/logs/api-key/logs/logs</code><a class="headerlink" href="#get--api-logs-api-key-logs-logs" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key/&lt;logs&gt; 로 등록된 호스트들의 로그 얻기</li>
+<li><strong>&lt;logs&gt;</strong>  [syslog | applog] 택1</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/logs/7E717E82ED7FB134/syslog/logs?start=2020-06-17T13:00:00+09:00&amp;end=2020-06-17T13:29:29+09:00</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;logs&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;2020-06-17T13:00:01.313628928+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;facility&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;pam_unix(cron:session): session opened for user root by (uid=0)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;19329&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;raddr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.201.160.22&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-17T13:01:01.967169024+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;facility&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;pam_unix(cron:session): session opened for user root by (uid=0)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;19391&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;raddr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.201.160.22&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-17T13:01:01.979931136+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;facility&quot;</span><span class="p">:</span> <span class="s2">&quot;9&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;(root) CMD (/ixMonitor/Common-Receiver/src/influxDB_deleter.py &gt;&gt; /ixMonitor/Common-Receiver/src/influxDB_deleter.log)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;19392&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;raddr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.201.160.22&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-17T13:03:01.382467072+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;facility&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;pam_unix(cron:session): session opened for user root by (uid=0)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;19501&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;raddr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.201.160.22&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-17T13:04:01.246466048+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;facility&quot;</span><span class="p">:</span> <span class="s2">&quot;9&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;(root) CMD (/ixMonitor/Common-Receiver/src/influxDB_deleter.py &gt;&gt; /ixMonitor/Common-Receiver/src/influxDB_deleter.log)&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;19557&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;raddr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.201.160.22&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span>
+      <span class="p">},</span>
+      <span class="nt">&quot;2020-06-17T13:04:07.794183936+09:00&quot;</span><span class="p">:</span> <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;facility&quot;</span><span class="p">:</span> <span class="s2">&quot;10&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hid&quot;</span><span class="p">:</span> <span class="s2">&quot;BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;pam_unix(cron:session): session closed for user root&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;pid&quot;</span><span class="p">:</span> <span class="s2">&quot;19556&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;raddr&quot;</span><span class="p">:</span> <span class="s2">&quot;1.201.160.22&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;info&quot;</span>
+      <span class="p">}</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="s2">&quot;1/2&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;akey&quot;</span><span class="p">:</span> <span class="s2">&quot;7E717E82ED7FB134&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">33</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>hostname</strong> 호스트 네임</li>
+<li><strong>appname</strong>  로그 발생 프로그램 명</li>
+<li><strong>severity</strong> 로그 발생 등급</li>
+<li><strong>pid</strong>      프로그램 ID</li>
+<li><strong>raddr</strong>    원격 전송 IP</li>
+<li><strong>message</strong>  발생된 메세지</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 데이터 시작 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+</ul>
+</li>
+<li><strong>end</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 가져올 데이터 끝 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>. (현재시간)</li>
+</ul>
+</li>
+<li><strong>hid</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> host-id</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (api-key에 등록된 서버 전체 출력)</li>
+</ul>
+</li>
+<li><strong>pid</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 프로그램 ID</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>.</li>
+</ul>
+</li>
+<li><strong>hostname</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 서버 hostname</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</li>
+<li><strong>appname</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 로그발생 프로그램 명</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</li>
+<li><strong>severity</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 로그 발생 등급</li>
+<li>(emerg/alert/crit/err/warn/notice/info/debug) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">debug</span></code>.</li>
+</ul>
+</li>
+<li><strong>count</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 페이지당 출력 갯수</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">20</span></code>.</li>
+</ul>
+</li>
+<li><strong>page</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 페이지중 현재페이지 (1/3)</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">1</span></code>.</li>
+</ul>
+</li>
+<li><strong>order</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 시간순서에 따른 정렬</li>
+<li>(asc/desc) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">asc</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-logs-aggr"></span><dl class="get">
+<dt id="get--api-logs-api-key-logs-aggr">
+<code class="descname">GET </code><code class="descname">/api/logs/api-key/logs/aggr</code><a class="headerlink" href="#get--api-logs-api-key-logs-aggr" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key/&lt;logs&gt;/&lt;aggr&gt; 로 등록된 호스트들의 로그 집계</li>
+<li><strong>&lt;logs&gt;</strong>  [syslog | applog] 택1</li>
+<li><strong>&lt;aggr&gt;</strong>  [histogram | terms] 택1</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/logs/7E717E82ED7FB134/syslog/histogram?start=2020-06-22T11:00:00+09:00&amp;end=2020-06-22T11:20:00+09:00</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;histogram&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;2020-06-22T11:00:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:01:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:02:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:03:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:04:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:05:00+09:00&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:06:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:07:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:08:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:09:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:10:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:11:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:12:00+09:00&quot;</span><span class="p">:</span> <span class="mi">8</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:13:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:14:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:15:00+09:00&quot;</span><span class="p">:</span> <span class="mi">6</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:16:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:17:00+09:00&quot;</span><span class="p">:</span> <span class="mi">12</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:18:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:19:00+09:00&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+      <span class="nt">&quot;2020-06-22T11:20:00+09:00&quot;</span><span class="p">:</span> <span class="mi">0</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;logs&quot;</span><span class="p">:</span> <span class="s2">&quot;syslog&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">80</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/logs/7E717E82ED7FB134/syslog/terms?start=2020-06-22T11:00:00+09:00&amp;end=2020-06-22T11:20:00+09:00&amp;tags=appname</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;logs&quot;</span><span class="p">:</span> <span class="s2">&quot;syslog&quot;</span><span class="p">,</span>
+      <span class="nt">&quot;field&quot;</span><span class="p">:</span> <span class="s2">&quot;appname&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;terms&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;50-motd-news&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">3.75</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;CRON&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">75</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">93.75</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;systemd&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;count&quot;</span><span class="p">:</span> <span class="mi">2</span><span class="p">,</span>
+        <span class="nt">&quot;percent&quot;</span><span class="p">:</span> <span class="mf">2.5</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">80</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 데이터 시작 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+</ul>
+</li>
+<li><strong>end</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 가져올 데이터 끝 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>. (현재시간)</li>
+</ul>
+</li>
+<li><strong>hid</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> host-id</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (api-key에 등록된 서버 전체 출력)</li>
+</ul>
+</li>
+<li><strong>interval</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 프로그램 ID</li>
+<li>aggr 값이 histogram 일때만 적용됨.</li>
+<li>(1m/5m/10m/30m/1h/1d) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">1m</span></code>.</li>
+</ul>
+</li>
+<li><strong>tags</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 집계 대상 필드 값</li>
+<li>aggr 값이 terms 일때는 무조건 집계필드가 필요함.</li>
+<li>syslog 와 applog 필드가 다름.</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="get-logs-alert"></span><dl class="get">
+<dt id="get--api-logs-api-key-alert">
+<code class="descname">GET </code><code class="descname">/api/logs/api-key/alert</code><a class="headerlink" href="#get--api-logs-api-key-alert" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key&gt; 로그에 설정된 alert 정보 얻기.</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/logs/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;log-alerts&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;APPLOG&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;kinx-agent&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;msg_express&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric &amp; Test&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+         <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">2</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;kinx-agent&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev2&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;msg_express&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric &amp; Send&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+         <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">4</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;kinx-agent&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;test-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;msg_express&quot;</span><span class="p">:</span> <span class="s2">&quot;Metric &amp; Send&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+         <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">5</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;SYSLOG&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+         <span class="nt">&quot;appname&quot;</span><span class="p">:</span> <span class="s2">&quot;influxd&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;detect_count&quot;</span><span class="p">:</span> <span class="mi">10</span><span class="p">,</span>
+         <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;msg_express&quot;</span><span class="p">:</span> <span class="s2">&quot;POST &amp; Next&quot;</span><span class="p">,</span>
+         <span class="nt">&quot;send_day_max&quot;</span><span class="p">:</span> <span class="mi">3</span><span class="p">,</span>
+         <span class="nt">&quot;send_interval&quot;</span><span class="p">:</span> <span class="mi">180</span><span class="p">,</span>
+         <span class="nt">&quot;sender_id&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;seq&quot;</span><span class="p">:</span> <span class="mi">1</span><span class="p">,</span>
+         <span class="nt">&quot;severity&quot;</span><span class="p">:</span> <span class="s2">&quot;debug 이상&quot;</span>
+      <span class="p">}</span>
+    <span class="p">]</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>hostname</strong>      호스트 네임</li>
+<li><strong>appname</strong>       로그 발생 프로그램 명</li>
+<li><strong>severity</strong>      로그 레벨 이상 (debug : debug 이상, warn : warnig 이상)</li>
+<li><strong>msg_express</strong>   message 필드에 대해서 regular expression 처리 가능. (and == &amp;, or == | 조건 처리 가능)</li>
+<li><strong>detect_count</strong>  모니터링 대상 조건에 감지 횟수 (횟수 만큼 감지되면 알람 발생됨 - 지속적인 위험을 체크하기 위함)</li>
+<li><strong>send_interval</strong> 알람전송후 다시 전송될 최소한의 간격을 지정함. (기본값 3분)</li>
+<li><strong>send_day_max</strong>  알람 전송 횟수를 하루 최대 횟수 설정. (SMS, Email, Slack 등등)</li>
+<li><strong>sender_id</strong>     해당 알람을 전송 대상 목록이 정의된 ID 값</li>
+<li><strong>seq</strong>           화면상에서는 보이지 않음.  alert 내용을 수정하거나 삭제할때 반드시 필요 함.  만약에 POST 상태에서 seq 값이 없을 경우에는 추가 등록처리 된다.</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>hid</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> host-id</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (api-key에 등록된 서버 전체 출력)</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="post-logs-alert"></span><dl class="post">
+<dt id="post--api-logs-api-key-alert">
+<code class="descname">POST </code><code class="descname">/api/logs/api-key/alert</code><a class="headerlink" href="#post--api-logs-api-key-alert" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key&gt; 로그에 새로운 alert 정보 추가 및 변경하기</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">POST</span> <span class="nn">/api/logs/7E717E82ED7FB134/alert</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+<span class="na">body</span><span class="o">:</span> <span class="l">추가,수정 정보</span>
+
+{
+  &quot;APPLOG&quot;: [
+    {
+      &quot;appname&quot;: &quot;kinx-agent&quot;,
+      &quot;detect_count&quot;: 3,
+      &quot;hostname&quot;: &quot;test-dev&quot;,
+      &quot;msg_express&quot;: &quot;Metric &amp; Send&quot;,
+      &quot;send_day_max&quot;: 3,
+      &quot;send_interval&quot;: 180,
+      &quot;sender_id&quot;: 1,
+      &quot;seq&quot;: 5
+    }
+  ],
+  &quot;SYSLOG&quot;: [
+    {
+      &quot;appname&quot;: &quot;influxd&quot;,
+      &quot;detect_count&quot;: 10,
+      &quot;hostname&quot;: &quot;kde-r1-dev&quot;,
+      &quot;msg_express&quot;: &quot;POST &amp; Next&quot;,
+      &quot;send_day_max&quot;: 3,
+      &quot;send_interval&quot;: 180,
+      &quot;sender_id&quot;: 1,
+      &quot;seq&quot;: 1,
+      &quot;severity&quot;: &quot;debug 이상&quot;
+    }
+  ]
+}
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+<span class="target" id="delete-logs-alert"></span><dl class="delete">
+<dt id="delete--api-logs-api-key-alert">
+<code class="descname">DELETE </code><code class="descname">/api/logs/api-key/alert</code><a class="headerlink" href="#delete--api-logs-api-key-alert" title="정의 주소">¶</a></dt>
+<dd><ul class="simple">
+<li>&lt;api-key&gt; 로그에 기존 alert 정보 삭제하기</li>
+</ul>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">DELETE</span> <span class="nn">/api/logs/7E717E82ED7FB134/alert</span> <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+<span class="na">body</span><span class="o">:</span> <span class="l">삭제정보</span>
+
+{
+  &quot;SYSLOG&quot;: [
+    {
+      &quot;appname&quot;: &quot;influxd&quot;,
+      &quot;detect_count&quot;: 10,
+      &quot;hostname&quot;: &quot;kde-r1-dev&quot;,
+      &quot;msg_express&quot;: &quot;POST &amp; Next&quot;,
+      &quot;send_day_max&quot;: 3,
+      &quot;send_interval&quot;: 180,
+      &quot;sender_id&quot;: 1,
+      &quot;seq&quot;: 1,
+      &quot;severity&quot;: &quot;debug 이상&quot;
+    }
+  ]
+}
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;OK&quot;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="customs.html" class="btn btn-neutral float-right" title="ixMonitor - Customs API" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="metrics.html" class="btn btn-neutral" title="ixMonitor - Metrics API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, kde by kinx.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,503 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="ko" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="ko" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ixMonitor - Events API &mdash; ixminitor-web-gateway 0.1 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/myStyle.css" type="text/css" />
+    <link rel="index" title="색인" href="../genindex.html" />
+    <link rel="search" title="검색" href="../search.html" />
+    <link rel="prev" title="ixMonitor - Customs API" href="customs.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ixminitor-web-gateway
+          
+
+          
+            
+            <img src="../_static/gabia_logo.png" class="logo" alt="Logo"/>
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../token.html">token API</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="web-gateway.html">Web-Gateway Rest API</a><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="basic.html">Basic API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="metrics.html">Metrics API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="logs.html">Logs API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="customs.html">Customs API</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Events API</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#api-list">API List</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#api-contents">API Contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ixminitor-web-gateway</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="web-gateway.html">Web-Gateway Rest API</a> &raquo;</li>
+        
+      <li>ixMonitor - Events API</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ixmonitor-events-api">
+<h1>ixMonitor - Events API<a class="headerlink" href="#ixmonitor-events-api" title="제목 주소">¶</a></h1>
+<div class="section" id="api-list">
+<h2>API List<a class="headerlink" href="#api-list" title="제목 주소">¶</a></h2>
+<table border="1" class="docutils">
+<colgroup>
+<col width="52%" />
+<col width="48%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Endpoint</th>
+<th class="head">Description</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td><a class="reference internal" href="#get-event-list"><span class="std std-ref">GET /api/events/api-key/list</span></a></td>
+<td>&lt;api-key&gt;로 등록된 호스트들의 이벤트 정보 얻기</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="api-contents">
+<h2>API Contents<a class="headerlink" href="#api-contents" title="제목 주소">¶</a></h2>
+<span class="target" id="get-event-list"></span><dl class="post">
+<dt id="post--api-events-api-key-list">
+<code class="descname">POST </code><code class="descname">/api/events/api-key/list</code><a class="headerlink" href="#post--api-events-api-key-list" title="정의 주소">¶</a></dt>
+<dd><p>&lt;api-key&gt;로 등록된 호스트들의 이벤트 정보 얻기</p>
+<p><strong>요청 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="nf">GET</span> <span class="nn">/api/events/7E717E82ED7FB134/list?start=2020-06-25T00:00:00+09:00</span>  <span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span>
+<span class="na">Host</span><span class="o">:</span> <span class="l">example.com</span>
+<span class="na">Authorization</span><span class="o">:</span> <span class="l">Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw</span>
+</pre></div>
+</div>
+<p><strong>응답 예</strong>:</p>
+<div class="highlight-http notranslate"><div class="highlight"><pre><span></span><span class="kr">HTTP</span><span class="o">/</span><span class="m">1.1</span> <span class="m">200</span> <span class="ne">OK</span>
+<span class="na">Content-Type</span><span class="o">:</span> <span class="l">application/json</span>
+
+<span class="p">{</span>
+  <span class="nt">&quot;data&quot;</span><span class="p">:</span> <span class="p">{</span>
+    <span class="nt">&quot;events&quot;</span><span class="p">:</span> <span class="p">[</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T00:08:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16358</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [3.50] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T00:07:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">13.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T00:13:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16360</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [0.50] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T00:12:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">10.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T00:29:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16362</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [7.50] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T00:27:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">17.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T01:56:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16364</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [1.75] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T01:55:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">12.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T03:30:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16366</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [3.25] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T03:29:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">13.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T03:32:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16368</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [0.25] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T03:31:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">10.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T03:58:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16370</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [0.75] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T03:57:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">11.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T04:23:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16372</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Alert&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">30.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [4.50] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T04:22:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">34.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T04:25:30+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16374</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [0.50] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T04:24:00+09:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">10.0</span>
+      <span class="p">},</span>
+      <span class="p">{</span>
+        <span class="nt">&quot;device&quot;</span><span class="p">:</span> <span class="s2">&quot;ALL&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;end&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T08:26:30&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;event_id&quot;</span><span class="p">:</span> <span class="mi">16376</span><span class="p">,</span>
+        <span class="nt">&quot;hostname&quot;</span><span class="p">:</span> <span class="s2">&quot;kde-r1-dev&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;level&quot;</span><span class="p">:</span> <span class="s2">&quot;Warning&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;limit&quot;</span><span class="p">:</span> <span class="mf">10.0</span><span class="p">,</span>
+        <span class="nt">&quot;message&quot;</span><span class="p">:</span> <span class="s2">&quot;hostname : [kde-r1-dev] system &gt; load1, [6.75] ë¥¼ ì´ˆê³¼ í•˜ì˜€ìŠµë‹ˆë‹¤.&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;metric&quot;</span><span class="p">:</span> <span class="s2">&quot;load1&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;pkey&quot;</span><span class="p">:</span> <span class="s2">&quot;SYSTEM&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;start&quot;</span><span class="p">:</span> <span class="s2">&quot;2020-06-25T08:24:00&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;AutoCompleted&quot;</span><span class="p">,</span>
+        <span class="nt">&quot;value&quot;</span><span class="p">:</span> <span class="mf">17.0</span>
+      <span class="p">}</span>
+    <span class="p">],</span>
+    <span class="nt">&quot;page&quot;</span><span class="p">:</span> <span class="s2">&quot;1/1&quot;</span><span class="p">,</span>
+    <span class="nt">&quot;tags&quot;</span><span class="p">:</span> <span class="p">{</span>
+      <span class="nt">&quot;akey&quot;</span><span class="p">:</span> <span class="s2">&quot;7E717E82ED7FB134&quot;</span>
+    <span class="p">},</span>
+    <span class="nt">&quot;total&quot;</span><span class="p">:</span> <span class="mi">10</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<ul class="simple">
+<li><strong>pkey</strong>     알람 발생영역 구분 (SYSTEM, CPU, MEM, DISK, DISKIO, NETWORK, SYSLOG, APPLOG, PORT, CUSTOM)</li>
+<li><strong>device</strong>   해당 발생영역의 디바이스 정보 ('ALL' 해당 발생영역에는 디바이스 구분이 없다는 뜻)</li>
+<li><strong>metric</strong>   알람 발생영역의 상세 메트릭</li>
+<li><strong>hostname</strong> 알람 발생 서버의 호스트 네임</li>
+<li><strong>level</strong>    알람 발생 레벨 (Error, Warning)</li>
+<li><strong>start</strong>    알람 발생 시작 시간</li>
+<li><strong>end</strong>      알람 발생 종료 시간</li>
+<li><strong>message</strong>  알람 발생시 전송된 메세지</li>
+<li><strong>value</strong>    알람 발생시 메트리 값</li>
+<li><strong>limit</strong>    해당 메트릭의 임계치 값</li>
+<li><strong>status</strong>   알람 발생후 현재 상태 ('OnGoing : 진행중','AutoCompleted : 자연종료','ForceCompleted : 강제종료','TimeoutCompleted : 에이전트 OFF 이벤트 종료')</li>
+<li><strong>event_id</strong> 알람 발생 이벤트 번호 (알람 전송내역을 확인이 필요할 경우 사용됨)</li>
+</ul>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name" colspan="2">Query Parameters:</th></tr>
+<tr class="field-odd field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><strong>start</strong> (<em>string</em>) -- <ul>
+<li><strong>(필수)</strong> 가져올 데이터 시작 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+</ul>
+</li>
+<li><strong>end</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 가져올 데이터 끝 시간</li>
+<li><code class="docutils literal notranslate"><span class="pre">YYYY-MM-DDThh:mm:ss+09:00</span></code> iso8601형식</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">0</span></code>. (현재시간)</li>
+</ul>
+</li>
+<li><strong>hid</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> host-id</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (api-key에 등록된 서버 전체 출력)</li>
+</ul>
+</li>
+<li><strong>pkey</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 이벤트 구분 코드</li>
+<li>(CPU/MEM/DISK/DISKIO/NETWORK/SYSTEM/SYSLOG/APPLOG/PORT/CUSTOM/OFF/CUSTOM_OFF) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">None</span></code>. (이벤트 전체대상)</li>
+</ul>
+</li>
+<li><strong>count</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 페이지당 출력 갯수</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">20</span></code>.</li>
+</ul>
+</li>
+<li><strong>page</strong> (<em>int</em>) -- <ul>
+<li><strong>(선택)</strong> 페이지중 현재페이지 (1/3)</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">1</span></code>.</li>
+</ul>
+</li>
+<li><strong>order</strong> (<em>string</em>) -- <ul>
+<li><strong>(선택)</strong> 시간순서에 따른 정렬</li>
+<li>(asc/desc) 중 택1</li>
+<li>미입력시 default는 <code class="docutils literal notranslate"><span class="pre">asc</span></code>.</li>
+</ul>
+</li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name" colspan="2">Response Headers:</th></tr>
+<tr class="field-even field"><td>&#160;</td><td class="field-body"><ul class="first simple">
+<li><a class="reference external" href="https://tools.ietf.org/html/rfc7231#section-3.1.1.5">Content-Type</a> -- json만을 지원</li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Status Codes:</th><td class="field-body"><ul class="first last simple">
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.1">200 OK</a> -- no error</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.2.5">204 No Content</a> -- 해당 데이터가 없음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.1">400 Bad Request</a> -- 요청 파라미터 오류</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.2">401 Unauthorized</a> -- Token이 expire되거나, 올바르지 않음</li>
+<li><a class="reference external" href="http://www.w3.org/Protocols/rfc2616/rfc2616-sec10.html#sec10.4.6">405 Method Not Allowed</a> -- 내부 서버 오류</li>
+</ul>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="customs.html" class="btn btn-neutral" title="ixMonitor - Customs API" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2020, kde by kinx.
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'../',
+            VERSION:'0.1',
+            LANGUAGE:'ko',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true,
+            SOURCELINK_SUFFIX: '.txt'
+        };
+    </script>
+      <script type="text/javascript" src="../_static/jquery.js"></script>
+      <script type="text/javascript" src="../_static/underscore.js"></script>
+      <script type="text/javascript" src="../_static/doctools.js"></script>
+      <script type="text/javascript" src="../_static/translations.js"></script>
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
