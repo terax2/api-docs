@@ -169,41 +169,45 @@ API Contents
       Content-Type: application/json
 
       {
+        "akey": "7E717E82ED7FB134",
         "hosts": [
           {
-            "agent": "Online",
-            "akey": "7E717E82ED7FB134",
+            "agent_status": "Online",
             "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
             "hostname": "kde-r1-dev",
             "service": "Y",
-            "status": "3",
+            "status": "Normal",
             "system": "Linux"
           },
           {
-            "agent": "Online",
-            "akey": "7E717E82ED7FB134",
+            "agent_status": "Online",
             "hid": "CB7A2A6E-102A-414C-8DBB-80AFCDC8C4FD",
             "hostname": "kde-r1-dev2",
             "service": "Y",
-            "status": "3",
+            "status": "Normal",
             "system": "Linux"
           },
           {
-            "agent": "Online",
-            "akey": "7E717E82ED7FB134",
+            "agent_status": "Online",
             "hid": "CCA11FCF-87FC-4F0B-A1C0-E37C586CE6B7",
             "hostname": "test-dev",
             "service": "Y",
-            "status": "3",
+            "status": "Normal",
             "system": "Linux"
           }
         ]
       }
- 
+
+   * **service**      해당 서비스 사용 유무 (에이전트가 설치되서 시작되면 활성화됨.)
+   * **agent_status** 해당 서버의 에이전트 접속상태를 표시.
+   * **akey**         에이전트를 시작하기 위한 api-key 값.(계정당 1개는 필수)
+   * **hid**          해당서버의 Unique-ID 값 (에이전트 활성화시 자동으로 생성됨)
+   * **hostname**     해당 서버의 호스트 네임(hostname_alt 값이 있을 경우에는 hostname_alt로 표시됨)
+   * **system**       해당 서버의 OS 구분 ( Linux, Windows )
+   * **status**       현재 해당 서버의 상태 (Normal, Warning, Alert)
 
    :queryparam string userid: * **(필수)** user-id
- 
- 
+  
    :resheader Content-Type: json만을 지원
    :statuscode 200: no error
    :statuscode 204: 해당 데이터가 없음
@@ -238,38 +242,59 @@ API Contents
 
       {
         "detail": {
-         "active_svc": "Y",
-         "applog_svc": "Y",
-         "assigned": "1.201.160.22:6929",
-         "custom_svc": "Y",
-         "hostname": "kde-r1-dev",
-         "hostname_alt": null,
-         "last_collect": "2020-06-23T10:04:30",
-         "local_addrs": [
+          "agent_status": "Online",
+          "service": "Y",
+          "applog_svc": "Y",
+          "assigned": "1.201.160.22:6929",
+          "custom_svc": "Y",
+          "hostname": "kde-r1-dev",
+          "hostname_alt": null,
+          "last_collect": "2020-06-23T10:04:30",
+          "local_addrs": [
             {
-            "lo": {
-               "mac": "00:00:00:00:00:00",
-               "tcp4": "127.0.0.1",
-               "tcp6": "::1"
-            }
+              "lo": {
+                "mac": "00:00:00:00:00:00",
+                "tcp4": "127.0.0.1",
+                "tcp6": "::1"
+              }
             },
             {
-            "ens3": {
-               "mac": "fa:16:3e:2c:38:15",
-               "tcp4": "192.168.10.17",
-               "tcp6": "fe80::f816:3eff:fe2c:3815%ens3"
+              "ens3": {
+                "mac": "fa:16:3e:2c:38:15",
+                "tcp4": "192.168.10.17",
+                "tcp6": "fe80::f816:3eff:fe2c:3815%ens3"
+              }
             }
-            }
-         ],
-         "metric_int": 30,
-         "os_detail": "Ubuntu 16.04 xenial",
-         "os_system": "Linux",
-         "port_svc": "Y",
-         "process_svc": "Y",
-         "remote_addr": "1.201.160.22",
-         "status": "3",
-         "syslog_svc": "Y"
+          ],
+          "metric_int": 30,
+          "os_detail": "Ubuntu 16.04 xenial",
+          "os_system": "Linux",
+          "port_svc": "Y",
+          "process_svc": "Y",
+          "remote_addr": "1.201.160.22",
+          "status": "Normal",
+          "syslog_svc": "Y"
+        }
       }
+
+   * **service**      해당 서비스 사용 유무 (에이전트가 설치되서 시작되면 활성화됨.)
+   * **agent_status** 해당 서버의 에이전트 상태를 표시.
+   * **applog_svc**   어플리케이션 로그 수집 기능 사용유무.(기본값 'N')
+   * **syslog_svc**   시스템 로그 수집 기능 사용유무.(기본값 'N')
+   * **custom_svc**   Custom Scripts 기능 사용유무.(기본값 'Y')
+   * **port_svc**     Port 모니터링 기능 사용유무.(기본값 'Y')
+   * **process_svc**  Process 모니터링 기능 사용유무.(기본값 'N')
+   * **assigned**     에이전트가 활성화되면 최초에 한번 데이타 저장소가(위치) 설정됨.
+   * **hostname**     해당 서버의 호스트 네임
+   * **hostname_alt** 해당 서버의 호스트 네임 대신 사용할수 있는 별칭.(기본값 null)
+   * **metric_int**   해당 서버에서 메트릭을 수집하는 주기 설정 (기본값 60초 설정, 30 ~ 60 초까지 초 단위 설정 가능)
+   * **last_collect** 해당 서버에서 마지막으로 메트릭이 수집된 시간
+   * **local_addrs**  해당 서버의 IP 정보
+   * **os_system**    해당 서버의 OS 구분 ( Linux, Windows )
+   * **os_detail**    해당 서버의 OS 상세정보
+   * **remote_addr**  해당 서버가 접속된 원격지 공인 IP 
+   * **status**       현재 해당 서버의 상태
+
 
    :queryparam string userid: * **(필수)** user-id
    :queryparam string hid: * **(필수)** host-id
@@ -296,15 +321,27 @@ API Contents
       POST /api/basic/hostdetail?userid=xxx&hid=xxxxxxxxxxxxxxxxxxx HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
-      body: {
-              "applog_svc": "Y",
-              "syslog_svc": "Y",
-              "custom_svc": "Y",
-              "port_svc": "Y",
-              "process_svc": "Y",
-              "metric_int": 30,
-              "hostname_alt": "host-update"
-            }
+      body: 
+
+      {
+        "service"   : "Y",
+        "applog_svc": "Y",
+        "syslog_svc": "Y",
+        "custom_svc": "Y",
+        "port_svc": "Y",
+        "process_svc": "Y",
+        "metric_int": 30,
+        "hostname_alt": "host-update"
+      }
+
+   * **service**      해당 서비스 사용 유무 (에이전트가 설치되서 시작되면 활성화됨.)
+   * **applog_svc**   어플리케이션 로그 수집 기능 사용유무.(기본값 'N')
+   * **syslog_svc**   시스템 로그 수집 기능 사용유무.(기본값 'N')
+   * **custom_svc**   Custom Scripts 기능 사용유무.(기본값 'Y')
+   * **port_svc**     Port 모니터링 기능 사용유무.(기본값 'Y')
+   * **process_svc**  Process 모니터링 기능 사용유무.(기본값 'N')
+   * **metric_int**   해당 서버에서 메트릭을 수집하는 주기 설정 (기본값 60초 설정, 30 ~ 60 초까지 초 단위 설정 가능)
+   * **hostname_alt** 해당 서버의 호스트 네임 대신 사용할수 있는 별칭.(기본값 null)
 
 
    **응답 예**:
@@ -320,21 +357,6 @@ API Contents
 
    :queryparam string userid: * **(필수)** user-id
    :queryparam string hid: * **(필수)** host-id
-   :body:
-      :string applog_svc: * **(선택)** application log 수집서비스 (Y/N)
-         * 미입력시 default는 ``N``.
-      :string syslog_svc: * **(선택)** syslog 수집서비스 (Y/N)
-         * 미입력시 default는 ``N``.
-      :string custom_svc: * **(선택)** custom script 실행서비스  (Y/N)
-         * 미입력시 default는 ``N``.
-      :string port_svc: * **(선택)** 특정포트 모니터링 실행서비스  (Y/N)
-         * 미입력시 default는 ``N``.
-      :string process_svc: * **(선택)** 프로세스별 모니터링 실행서비스  (Y/N)
-         * 미입력시 default는 ``N``.
-      :string metric_int: * **(선택)** 모든 메트릭의 수집 주기 설정
-         * 미입력시 default는 ``60``.
-      :string hostname_alt: * **(선택)** 해당서버의 호스트네임의 다른이름 설정
-         * 미입력시 default는 ``None``.
 
 
    :resheader Content-Type: json만을 지원
