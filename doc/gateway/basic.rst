@@ -312,7 +312,7 @@ API Contents
 
 .. http:post:: /api/basic/hostdetail
    
-   호스트의 서비스 및 수집주기 등 업데이트.
+   * 호스트의 서비스 및 수집주기 등 업데이트.
 
    **요청 예**:
 
@@ -321,7 +321,7 @@ API Contents
       POST /api/basic/hostdetail?userid=xxx&hid=xxxxxxxxxxxxxxxxxxx HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
-      body: 
+      body: 업데이트 내용
 
       {
         "service"   : "Y",
