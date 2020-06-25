@@ -46,7 +46,7 @@ source_encoding = 'utf-8-sig'
 master_doc = 'index'
 
 # General information about the project.
-project = u'ixminitor-web-gateway'
+project = u'ixMonitor-web-gateway'
 copyright = u'2020, kde by kinx'
 
 # The version info for the project you're documenting, acts as replacement for
@@ -188,7 +188,7 @@ html_show_sourcelink = False
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'ixcloudapidoc'
+htmlhelp_basename = 'ixMonitorapidoc'
 
 
 # -- Options for LaTeX output ---------------------------------------------
@@ -208,7 +208,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto, manual, or own class]).
 latex_documents = [
-  ('index', 'ixcloudapi.tex', u'ixcloud-api Documentation',
+  ('index', 'ixMonitorapi.tex', u'ixMonitor-api Documentation',
    u'kde', 'manual'),
 ]
 
@@ -238,7 +238,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'ixcloudapi', u'ixcloud-api Documentation',
+    ('index', 'ixMonitorapi', u'ixMonitor-api Documentation',
      [u'kde'], 1)
 ]
 
@@ -252,8 +252,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'ixcloudapi', u'ixcloud-api Documentation',
-   u'kde', 'ixcloudapi', 'One line description of project.',
+  ('index', 'ixMonitorapi', u'ixMonitor-api Documentation',
+   u'kde', 'ixMonitorapi', 'One line description of project.',
    'Miscellaneous'),
 ]
 
