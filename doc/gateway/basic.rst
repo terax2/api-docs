@@ -293,7 +293,7 @@ API Contents
    * **os_system**    해당 서버의 OS 구분 ( Linux, Windows )
    * **os_detail**    해당 서버의 OS 상세정보
    * **remote_addr**  해당 서버가 접속된 원격지 공인 IP 
-   * **status**       현재 해당 서버의 상태
+   * **status**       현재 해당 서버의 상태 (Normal, Warning, Alert)
 
 
    :queryparam string userid: * **(필수)** user-id
