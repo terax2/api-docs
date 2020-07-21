@@ -11,6 +11,12 @@ API List
 +==================================================================+============================================================+
 |:ref:`GET /api/metrics/api-key/hosts <get_metrics_hosts>`         |<api-key> 값으로 등록된 호스트 정보 얻기                    |
 +------------------------------------------------------------------+------------------------------------------------------------+
+|:ref:`GET /api/metrics/api-key/alerts <get_metrics_alerts>`       |<api-key> 값으로 등록된 호스트별 Alert 정보                  |
++------------------------------------------------------------------+------------------------------------------------------------+
+|:ref:`POST /api/metrics/api-key/alerts <post_metrics_alerts>`     |<api-key> 값으로 등록된 호스트별 Alert 수정,추가                |
++------------------------------------------------------------------+------------------------------------------------------------+
+|:ref:`DELETE /api/metrics/api-key/alerts <delete_metrics_alerts>` |<api-key> 값으로 등록된 호스트별 Alert 정보 삭제                |
++------------------------------------------------------------------+------------------------------------------------------------+
 |:ref:`GET /api/metrics/hid/list <get_metrics_list>`               |<hid> 값으로 등록된 메트릭명:단위 정보 얻기.                |
 +------------------------------------------------------------------+------------------------------------------------------------+
 |:ref:`GET /api/metrics/hid/last <get_metrics_last>`               |<hid> 값으로 마지막 값 얻기                                 |
@@ -131,6 +137,308 @@ API Contents
    :statuscode 400: 요청 파라미터 오류
    :statuscode 401: Token이 expire되거나, 올바르지 않음
    :statuscode 405: 내부 서버 오류
+
+
+
+
+
+
+.. _get_metrics_alerts:
+
+.. http:get:: /api/metrics/api-key/alerts
+
+   * <api-key> 값으로 등록된 호스트별 Alert 정보.
+
+   **요청 예**:
+
+   .. sourcecode:: http
+
+      GET /api/metrics/7E717E82ED7FB134/alerts?group_id=1  HTTP/1.1
+      Host: example.com
+      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
+
+
+   **응답 예**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "alerts": {
+          "001.kde-r1-dev": {
+            "CPU": [
+              {
+                "detect_count": 3,
+                "device": "cpu_t",
+                "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+                "high": 30.0,
+                "metric": "idle",
+                "middle": 42.0,
+                "reverse": "Y",
+                "send_day_max": 3,
+                "send_interval": 180,
+                "sender_group": {
+                  "id": 1,
+                  "name": "sms 발송"
+                },
+                "seq_id": 1
+              }
+            ],
+            "DISK": [
+              {
+                "detect_count": 3,
+                "device": "vdb1",
+                "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+                "high": 80.0,
+                "metric": "percent",
+                "middle": 70.0,
+                "reverse": "N",
+                "send_day_max": 3,
+                "send_interval": 180,
+                "sender_group": {
+                  "id": 1,
+                  "name": "sms 발송"
+                },
+                "seq_id": 2
+              }
+            ],
+            "MEM": [
+              {
+                "detect_count": 3,
+                "device": "ALL",
+                "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+                "high": 70.0,
+                "metric": "percent",
+                "middle": 50.0,
+                "reverse": "N",
+                "send_day_max": 3,
+                "send_interval": 180,
+                "sender_group": {
+                  "id": 1,
+                  "name": "sms 발송"
+                },
+                "seq_id": 4
+              }
+            ],
+            "NETWORK": [
+              {
+                "detect_count": 3,
+                "device": "ens3",
+                "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+                "high": 1000000.0,
+                "metric": "inbps",
+                "middle": 800000.0,
+                "reverse": "N",
+                "send_day_max": 3,
+                "send_interval": 180,
+                "sender_group": {
+                  "id": 1,
+                  "name": "sms 발송"
+                },
+                "seq_id": 5
+              }
+            ],
+            "OFF": [
+              {
+                "detect_count": 3,
+                "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+                "sender_group": {
+                  "id": 1,
+                  "name": "sms 발송"
+                },
+                "seq_id": 6
+              }
+            ],
+            "SYSTEM": [
+              {
+                "detect_count": 3,
+                "device": "ALL",
+                "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+                "high": 30.0,
+                "metric": "load1",
+                "middle": 10.0,
+                "reverse": "N",
+                "send_day_max": 3,
+                "send_interval": 180,
+                "sender_group": {
+                  "id": 1,
+                  "name": "sms 발송"
+                },
+                "seq_id": 7
+              }
+            ]
+          }
+        }
+      }
+
+
+   * **hostname**     호스트네임별
+     .. **hid**           호스트 ID
+     .. **category**      항목 구분 ('CPU', 'DISK', 'DISKIO', 'MEM', 'NETWORK', 'SYSTEM', 'OFF')
+     .. **device**        디바이스
+     .. **metric**        디바이스의 상세 항목
+     .. **reverse**       'Y': 수치가 낮을수록 위험, 'N' : 수치가 높을수록 위험. (일반적으로 'N' 값이 기본값임)
+     .. **high**          Alert - 경고 수치 값
+     .. **middle**        Warning - 경고 수치 값
+     .. **detect_count**  연속 감지 횟수
+     .. **send_interval** 알람 발송 간격
+     .. **send_day_max**  하루 최대 발송 횟수
+     .. **sender_group**  알람발생시 전송할 발송 그룹
+     .. **seq_id**        해당 Alert 시퀀스번호
+
+
+   :queryparam int group_id: * **(필수)** 해당 호스트그룹 ID
+   :queryparam string hid: * **(선택)** 지정 호스트 ID
+      * 미입력시 default는 ``None : 그룹전체호스트``.
+
+
+   :resheader Content-Type: json만을 지원
+   :statuscode 200: no error
+   :statuscode 204: 해당 데이터가 없음
+   :statuscode 400: 요청 파라미터 오류
+   :statuscode 401: Token이 expire되거나, 올바르지 않음
+   :statuscode 405: 내부 서버 오류
+
+
+
+
+
+
+.. _post_metrics_alerts:
+
+.. http:post:: /api/metrics/api-key/alerts
+
+   * <api-key> 값으로 등록된 호스트별 Alert 수정, 추가.
+
+   **요청 예**:
+
+   .. sourcecode:: http
+
+      POST /api/metrics/7E717E82ED7FB134/alerts?group_id=1  HTTP/1.1
+      Host: example.com
+      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
+      body: 추가,수정 정보
+
+      {
+        "hosts":["BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE"],
+        "metrics": {
+          "CPU": [
+            {
+              "detect_count": 3,
+              "device": "cpu_t",
+              "high": 30.0,
+              "metric": "idle",
+              "middle": 42.0,
+              "reverse": "Y",
+              "send_day_max": 3,
+              "send_interval": 180,
+              "sender_id": 1
+            }
+          ]
+        }
+      }
+
+      * **hosts**     적용될 호스트ID 목록
+      * **metrics**   수정 및 삭제 Alert 정보
+        .. **category**      항목 구분 ('CPU', 'DISK', 'DISKIO', 'MEM', 'NETWORK', 'SYSTEM', 'OFF')
+        .. **device**        디바이스
+        .. **metric**        디바이스의 상세 항목
+        .. **reverse**       'Y': 수치가 낮을수록 위험, 'N' : 수치가 높을수록 위험. (일반적으로 'N' 값이 기본값임)
+        .. **high**          Alert - 경고 수치 값
+        .. **middle**        Warning - 경고 수치 값
+        .. **detect_count**  연속 감지 횟수
+        .. **send_interval** 알람 발송 간격
+        .. **send_day_max**  하루 최대 발송 횟수
+        .. **sender_id**     알람 발송 그룹에서 선택된 발송그룹ID 값
+
+
+   **응답 예**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "message": "OK"
+      }
+
+
+   :queryparam int group_id: * **(필수)** 해당 호스트그룹 ID
+   :queryparam string hid: * **(선택)** 지정 호스트 ID
+      * 미입력시 default는 ``None : 그룹전체호스트``.
+
+
+   :resheader Content-Type: json만을 지원
+   :statuscode 200: no error
+   :statuscode 204: 해당 데이터가 없음
+   :statuscode 400: 요청 파라미터 오류
+   :statuscode 401: Token이 expire되거나, 올바르지 않음
+   :statuscode 405: 내부 서버 오류
+
+
+
+
+
+
+.. _delete_metrics_alerts:
+
+.. http:delete:: /api/metrics/api-key/alerts
+
+   * <api-key> 값으로 등록된 호스트별 Alert 정보 삭제.
+
+   **요청 예**:
+
+   .. sourcecode:: http
+
+      DELETE /api/metrics/7E717E82ED7FB134/alerts?group_id=1  HTTP/1.1
+      Host: example.com
+      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
+      body: 추가,수정 정보
+
+      {
+        "hosts":["BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE"],
+        "metrics": {
+          "CPU": [
+            {
+              "seq_id": 1
+            }
+          ]
+        }
+      }
+
+      * **hosts**     삭제될 대상 호스트ID 목록
+      * **metrics**   수정 및 삭제 Alert 정보
+        .. **category**      항목 구분 ('CPU', 'DISK', 'DISKIO', 'MEM', 'NETWORK', 'SYSTEM', 'OFF')
+        .. **seq_id**        Alert seq-id
+
+
+   **응답 예**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "message": "OK"
+      }
+
+
+   :queryparam int group_id: * **(필수)** 해당 호스트그룹 ID
+   :queryparam string hid: * **(선택)** 지정 호스트 ID
+      * 미입력시 default는 ``None : 그룹전체호스트``.
+
+
+   :resheader Content-Type: json만을 지원
+   :statuscode 200: no error
+   :statuscode 204: 해당 데이터가 없음
+   :statuscode 400: 요청 파라미터 오류
+   :statuscode 401: Token이 expire되거나, 올바르지 않음
+   :statuscode 405: 내부 서버 오류
+
 
 
 
