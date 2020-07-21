@@ -17,29 +17,29 @@ API List
 +----------------------------------------------------------------------+-----------------------------------------------+
 |:ref:`GET /api/basic/hostlist <get_basic_hostlist>`                   |계정에 등록된 호스트 서버 목록 확인            |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`GET /api/basic/hostgroups <get_basic_hostgroups>`               |계정에 등록된 호스트 그룹 목록                |
+|:ref:`GET /api/basic/hostgroups <get_basic_hostgroups>`               |계정에 등록된 호스트 그룹 목록                 |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`POST /api/basic/hostgroups <post_basic_hostgroups>`             |계정에 등록된 호스트 그룹 수정                |
+|:ref:`POST /api/basic/hostgroups <post_basic_hostgroups>`             |계정에 등록된 호스트 그룹 수정                 |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`DELETE /api/basic/hostgroups <delete_basic_hostgroups>`         |계정에 등록된 호스트 그룹 삭제               |
+|:ref:`DELETE /api/basic/hostgroups <delete_basic_hostgroups>`         |계정에 등록된 호스트 그룹 삭제                 |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`POST /api/basic/hostgrpchg <post_basic_hostgrpchg>`             |계정에 등록된 호스트 그룹 변경                |
+|:ref:`POST /api/basic/hostgrpchg <post_basic_hostgrpchg>`             |계정에 등록된 호스트 그룹 변경                 |
 +----------------------------------------------------------------------+-----------------------------------------------+
 |:ref:`GET /api/basic/hostdetail <get_basic_hostdetail>`               |호스트 상세 내역 확인하기                      |
 +----------------------------------------------------------------------+-----------------------------------------------+
 |:ref:`POST /api/basic/hostdetail <post_basic_hostdetail>`             |호스트의 서비스 및 수집주기 등 업데이트        |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`GET /api/basic/templetelist <get_basic_templetelist>`           |계정내 템플릿 리스트                      |
+|:ref:`GET /api/basic/templetelist <get_basic_templetelist>`           |계정내 템플릿 리스트                           |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`POST /api/basic/templetelist <post_basic_templetelist>`         |계정내 템플릿 수정,추가                     |
+|:ref:`POST /api/basic/templetelist <post_basic_templetelist>`         |계정내 템플릿 수정,추가                        |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`DELETE /api/basic/templetelist <delete_basic_templetelist>`     |계정내 템플릿 삭제                       |
+|:ref:`DELETE /api/basic/templetelist <delete_basic_templetelist>`     |계정내 템플릿 삭제                            |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`GET /api/basic/templetegroups <get_basic_templetegroups>`       |계정내 템플릿 그룹 리스트         |
+|:ref:`GET /api/basic/templetegroups <get_basic_templetegroups>`       |계정내 템플릿 그룹 리스트                     |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`POST /api/basic/templetegroups <post_basic_templetegroups>`     |계정내 템플릿 그룹 수정,추가         |
+|:ref:`POST /api/basic/templetegroups <post_basic_templetegroups>`     |계정내 템플릿 그룹 수정,추가                   |
 +----------------------------------------------------------------------+-----------------------------------------------+
-|:ref:`DELETE /api/basic/templetegroups <delete_basic_templetegroups>` |계정내 템플릿 그룹 삭제                      |
+|:ref:`DELETE /api/basic/templetegroups <delete_basic_templetegroups>` |계정내 템플릿 그룹 삭제                        |
 +----------------------------------------------------------------------+-----------------------------------------------+
 
 
