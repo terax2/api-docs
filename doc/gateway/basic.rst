@@ -41,6 +41,10 @@ API List
 +----------------------------------------------------------------------+-----------------------------------------------+
 |:ref:`DELETE /api/basic/templetegroups <delete_basic_templetegroups>` |계정내 템플릿 그룹 삭제                        |
 +----------------------------------------------------------------------+-----------------------------------------------+
+|:ref:`GET /api/basic/serviceupdate <get_basic_serviceupdate>`         |계정내 서비스 내용 보기                        |
++----------------------------------------------------------------------+-----------------------------------------------+
+|:ref:`POST /api/basic/serviceupdate <post_basic_serviceupdate>`       |계정내 서비스 내용 수정                        |
++----------------------------------------------------------------------+-----------------------------------------------+
 
 
 API Contents
@@ -988,3 +992,133 @@ API Contents
    :statuscode 405: 내부 서버 오류
 
 
+
+
+
+
+.. _get_basic_serviceupdate:
+
+.. http:get:: /api/basic/serviceupdate
+   
+   계정내 서비스 내용 보기.
+
+   **요청 예**:
+
+   .. sourcecode:: http
+
+      GET /api/basic/serviceupdate?akey=7E717E82ED7FB134 HTTP/1.1
+      Host: example.com
+      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
+
+
+   **응답 예**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "services": [
+          {
+            "applog": "Y",
+            "custom": "Y",
+            "group_name": "기본그룹",
+            "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+            "hostname": "kde-r1-dev",
+            "interval": 30,
+            "monitoring": "Y",
+            "port": "Y",
+            "process": "Y",
+            "syslog": "Y"
+          },
+          {
+            "applog": "Y",
+            "custom": "Y",
+            "group_name": "기본그룹",
+            "hid": "CCA11FCF-87FC-4F0B-A1C0-E37C586CE6B7",
+            "hostname": "test-dev",
+            "interval": 60,
+            "monitoring": "Y",
+            "port": "Y",
+            "process": "Y",
+            "syslog": "Y"
+          },
+          {
+            "applog": "Y",
+            "custom": "Y",
+            "group_name": "기본그룹",
+            "hid": "CB7A2A6E-102A-414C-8DBB-80AFCDC8C4FD",
+            "hostname": "kde-r1-dev2",
+            "interval": 60,
+            "monitoring": "Y",
+            "port": "Y",
+            "process": "Y",
+            "syslog": "Y"
+          }
+        ]
+      }
+
+   :queryparam string akey: * **(필수)** api-key 값
+  
+   :resheader Content-Type: json만을 지원
+   :statuscode 200: no error
+   :statuscode 204: 해당 데이터가 없음
+   :statuscode 400: 요청 파라미터 오류
+   :statuscode 401: Token이 expire되거나, 올바르지 않음
+   :statuscode 405: 내부 서버 오류
+
+
+
+
+
+.. _post_basic_serviceupdate:
+
+.. http:post:: /api/basic/serviceupdate
+   
+   계정내 서비스 내용 수정
+
+   **요청 예**:
+
+   .. sourcecode:: http
+
+      POST /api/basic/serviceupdate?akey=7E717E82ED7FB134 HTTP/1.1
+      Host: example.com
+      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
+      body: 수정 정보
+
+      [
+        {
+          "applog": "Y",
+          "custom": "Y",
+          "hid": "CCA11FCF-87FC-4F0B-A1C0-E37C586CE6B7",
+          "interval": 60,
+          "monitoring": "Y",
+          "port": "Y",
+          "process": "Y",
+          "syslog": "Y"
+        }
+      ]
+
+      * **hid**      호스트 ID 값은 반드시 필요 합니다.
+
+   **응답 예**:
+
+   .. sourcecode:: http
+
+      HTTP/1.1 200 OK
+      Content-Type: application/json
+
+      {
+        "message": "OK"
+      }
+
+
+   :queryparam string akey: * **(필수)** api-key 값
+  
+   :resheader Content-Type: json만을 지원
+   :statuscode 200: no error
+   :statuscode 204: 해당 데이터가 없음
+   :statuscode 400: 요청 파라미터 오류
+   :statuscode 401: Token이 expire되거나, 올바르지 않음
+   :statuscode 405: 내부 서버 오류
