@@ -15,11 +15,11 @@ API List
 +-----------------------------------------------------------------+-------------------------------------------------------+
 |:ref:`DELETE /api/customs/hid/scripts <delete_customs_scripts>`  |<hid>에 설정된 Customs Scripts 정보 삭제 하기          |
 +-----------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`GET /api/customs/hid/alert <get_customs_alert>`            |<hid>에 설정된 Customs alert 정보 얻기                 |
+|:ref:`GET /api/customs/api-key/alert <get_customs_alerts>`       |<api-key>에 설정된 Customs alert 정보 얻기             |
 +-----------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`POST /api/custom/hid/alert <post_customs_alert>`           |<hid>에 설정된 Customs alert 정보 추가 및 변경하기     |
+|:ref:`POST /api/custom/api-key/alert <post_customs_alerts>`      |<api-key>에 설정된 Customs alert 정보 추가 및 변경하기 |
 +-----------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`DELETE /api/customs/hid/alert <delete_customs_alert>`      |<hid>에 설정된 Customs alert 정보 삭제하기             |
+|:ref:`DELETE /api/customs/api-key/alert <delete_customs_alerts>` |<api-key>에 설정된 Customs alert 정보 삭제하기         |
 +-----------------------------------------------------------------+-------------------------------------------------------+
 
 
@@ -214,17 +214,17 @@ API Contents
 
 
 
-.. _get_customs_alert:
+.. _get_customs_alerts:
 
-.. http:get:: /api/customs/hid/alert
+.. http:get:: /api/customs/hid/alerts
 
-   * <hid>에 설정된 Customs alert 정보 얻기.
+   * <api-key>에 설정된 Customs alert 정보 얻기.
 
    **요청 예**:
 
    .. sourcecode:: http
 
-      GET /api/customs/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert HTTP/1.1
+      GET /api/customs/7E717E82ED7FB134/alerts?group_id=1 HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
 
@@ -236,10 +236,14 @@ API Contents
       Content-Type: application/json
 
       {
-        "custom-alerts": [
+        "alerts": [
           {
             "custom_id": 1,
             "detect_count": 3,
+            "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+            "high": 0,
+            "hostname": "kde-r1-dev",
+            "middle": 0,
             "result": "24",
             "return_type": "string",
             "send_day_max": 3,
@@ -249,8 +253,11 @@ API Contents
           {
             "custom_id": 2,
             "detect_count": 3,
+            "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
             "high": 45.0,
+            "hostname": "kde-r1-dev",
             "middle": 35.0,
+            "result": "",
             "return_type": "value",
             "send_day_max": 3,
             "send_interval": 180,
@@ -259,8 +266,11 @@ API Contents
           {
             "custom_id": 3,
             "detect_count": 3,
+            "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
             "high": 60.0,
+            "hostname": "kde-r1-dev",
             "middle": 30.0,
+            "result": "",
             "return_type": "value",
             "send_day_max": 3,
             "send_interval": 180,
@@ -269,9 +279,25 @@ API Contents
           {
             "custom_id": 4,
             "detect_count": 3,
+            "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
             "high": 50.0,
+            "hostname": "kde-r1-dev",
             "middle": 30.0,
+            "result": "",
             "return_type": "value",
+            "send_day_max": 3,
+            "send_interval": 180,
+            "sender_id": 1
+          },
+          {
+            "custom_id": 618768,
+            "detect_count": 3,
+            "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+            "high": 0,
+            "hostname": "kde-r1-dev",
+            "middle": 0,
+            "result": "24",
+            "return_type": "string",
             "send_day_max": 3,
             "send_interval": 180,
             "sender_id": 1
@@ -289,6 +315,9 @@ API Contents
    * **send_day_max**  알람 전송 횟수를 하루 최대 횟수 설정. (SMS, Email, Slack 등등)
    * **sender_id**     해당 알람을 전송 대상 목록이 정의된 ID 값
    
+   :queryparam int group_id: * **(필수)** 호스트 그룹ID
+   :queryparam string hid: * **(선택)** host-id
+      * 미입력시 default는 ``None``. (api-key에 등록된 서버 전체 출력)
 
    :resheader Content-Type: json만을 지원
    :statuscode 200: no error
@@ -301,17 +330,17 @@ API Contents
 
 
 
-.. _post_customs_alert:
+.. _post_customs_alerts:
 
-.. http:post:: /api/customs/hid/alert
+.. http:post:: /api/customs/api-key/alerts
 
-   * <hid>에 설정된 Customs alert 정보 추가 및 변경하기
+   * <api-key>에 설정된 Customs alert 정보 추가 및 변경하기
 
    **요청 예**:
 
    .. sourcecode:: http
 
-      POST /api/customs/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert HTTP/1.1
+      POST /api/customs/7E717E82ED7FB134/alerts?group_id=1 HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
       body: 추가,수정 정보
@@ -351,6 +380,8 @@ API Contents
         "message": "OK"
       }
 
+   :queryparam int group_id: * **(필수)** 호스트 그룹ID
+
    :resheader Content-Type: json만을 지원
    :statuscode 200: no error
    :statuscode 204: 해당 데이터가 없음
@@ -362,17 +393,17 @@ API Contents
 
 
 
-.. _delete_customs_alert:
+.. _delete_customs_alerts:
 
-.. http:delete:: /api/customs/hid/alert
+.. http:delete:: /api/customs/api-key/alerts
 
-   * <hid>에 설정된 Customs alert 정보 삭제하기.
+   * <api-key>에 설정된 Customs alert 정보 삭제하기.
 
    **요청 예**:
 
    .. sourcecode:: http
 
-      DELETE /api/customs/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert HTTP/1.1
+      DELETE /api/customs/7E717E82ED7FB134/alerts?group_id=1 HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
       body: 삭제정보
@@ -401,6 +432,8 @@ API Contents
       {
         "message": "OK"
       }
+
+   :queryparam int group_id: * **(필수)** 호스트 그룹ID
 
    :resheader Content-Type: json만을 지원
    :statuscode 200: no error
