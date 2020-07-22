@@ -15,11 +15,11 @@ API List
 +------------------------------------------------------------+-------------------------------------------------------+
 |:ref:`GET /api/logs/api-key/logs/aggr <get_logs_aggr>`      |<api-key/<logs>/<aggr> 로 등록된 호스트들의 로그 집계  |
 +------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`GET /api/logs/api-key/alert <get_logs_alert>`         |<api-key> 로그에 설정된 alert 정보 얻기                |
+|:ref:`GET /api/logs/api-key/alert <get_logs_alerts>`        |<api-key> 로그에 설정된 alert 정보 얻기                |
 +------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`POST /api/logs/api-key/alert <post_logs_alert>`       |<api-key> 로그에 새로운 alert 정보 추가 및 변경하기    |
+|:ref:`POST /api/logs/api-key/alert <post_logs_alerts>`      |<api-key> 로그에 새로운 alert 정보 추가 및 변경하기    |
 +------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`DELETE /api/logs/api-key/alert <delete_logs_alert>`   |<api-key> 로그에 기존 alert 정보 삭제하기              |
+|:ref:`DELETE /api/logs/api-key/alert <delete_logs_alerts>`  |<api-key> 로그에 기존 alert 정보 삭제하기              |
 +------------------------------------------------------------+-------------------------------------------------------+
 
 
@@ -368,9 +368,9 @@ API Contents
 
 
 
-.. _get_logs_alert:
+.. _get_logs_alerts:
 
-.. http:get:: /api/logs/api-key/alert
+.. http:get:: /api/logs/api-key/alerts
 
    * <api-key> 로그에 설정된 alert 정보 얻기.
 
@@ -378,7 +378,7 @@ API Contents
 
    .. sourcecode:: http
 
-      GET /api/logs/BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE/alert HTTP/1.1
+      GET /api/logs/7E717E82ED7FB134/alerts?group_id=1 HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
 
@@ -390,11 +390,12 @@ API Contents
       Content-Type: application/json
 
       {
-        "log-alerts": {
+        "alerts": {
           "APPLOG": [
             {
                "appname": "kinx-agent",
                "detect_count": 3,
+               "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
                "hostname": "kde-r1-dev",
                "msg_express": "Metric & Test",
                "send_day_max": 3,
@@ -405,6 +406,7 @@ API Contents
             {
                "appname": "kinx-agent",
                "detect_count": 10,
+               "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
                "hostname": "kde-r1-dev2",
                "msg_express": "Metric & Send",
                "send_day_max": 3,
@@ -412,6 +414,80 @@ API Contents
                "sender_id": 1,
                "seq": 4
             },
+            {
+               "appname": "kinx-agent",
+               "detect_count": 3,
+               "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+               "hostname": "test-dev",
+               "msg_express": "Metric & Send",
+               "send_day_max": 3,
+               "send_interval": 180,
+               "sender_id": 1,
+               "seq": 5
+            }
+          ],
+          "SYSLOG": [
+            {
+               "appname": "influxd",
+               "detect_count": 10,
+               "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
+               "hostname": "kde-r1-dev",
+               "msg_express": "POST & Next",
+               "send_day_max": 3,
+               "send_interval": 180,
+               "sender_id": 1,
+               "seq": 1,
+               "severity": "debug"
+            }
+          ]
+        }
+      }
+
+
+   * **hostname**      호스트 네임
+   * **appname**       로그 발생 프로그램 명
+   * **severity**      로그 레벨 이상 (debug : debug 이상, warn : warnig 이상)
+   * **msg_express**   message 필드에 대해서 regular expression 처리 가능. (and == &, or == | 조건 처리 가능)
+   * **detect_count**  모니터링 대상 조건에 감지 횟수 (횟수 만큼 감지되면 알람 발생됨 - 지속적인 위험을 체크하기 위함)
+   * **send_interval** 알람전송후 다시 전송될 최소한의 간격을 지정함. (기본값 3분)
+   * **send_day_max**  알람 전송 횟수를 하루 최대 횟수 설정. (SMS, Email, Slack 등등)
+   * **sender_id**     해당 알람을 전송 대상 목록이 정의된 ID 값
+   * **seq**           화면상에서는 보이지 않음.  alert 내용을 수정하거나 삭제할때 반드시 필요 함.  만약에 POST 상태에서 seq 값이 없을 경우에는 추가 등록처리 된다.
+   
+   :queryparam int group_id: * **(필수)** 호스트 그룹ID
+   :queryparam string hid: * **(선택)** host-id
+      * 미입력시 default는 ``None``. (api-key에 등록된 서버 전체 출력)
+
+   :resheader Content-Type: json만을 지원
+   :statuscode 200: no error
+   :statuscode 204: 해당 데이터가 없음
+   :statuscode 400: 요청 파라미터 오류
+   :statuscode 401: Token이 expire되거나, 올바르지 않음
+   :statuscode 405: 내부 서버 오류
+
+
+
+
+
+.. _post_logs_alerts:
+
+.. http:post:: /api/logs/api-key/alerts
+
+   * <api-key> 로그에 새로운 alert 정보 추가 및 변경하기
+
+   **요청 예**:
+
+   .. sourcecode:: http
+
+      POST /api/logs/7E717E82ED7FB134/alerts?group_id=1 HTTP/1.1
+      Host: example.com
+      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
+      body: 추가,수정 정보
+
+      {
+        "hosts": ["BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE"]
+        "alerts": {
+          "APPLOG": [
             {
                "appname": "kinx-agent",
                "detect_count": 3,
@@ -433,78 +509,10 @@ API Contents
                "send_interval": 180,
                "sender_id": 1,
                "seq": 1,
-               "severity": "debug 이상"
+               "severity": "debug"
             }
           ]
         }
-      }
-
-
-   * **hostname**      호스트 네임
-   * **appname**       로그 발생 프로그램 명
-   * **severity**      로그 레벨 이상 (debug : debug 이상, warn : warnig 이상)
-   * **msg_express**   message 필드에 대해서 regular expression 처리 가능. (and == &, or == | 조건 처리 가능)
-   * **detect_count**  모니터링 대상 조건에 감지 횟수 (횟수 만큼 감지되면 알람 발생됨 - 지속적인 위험을 체크하기 위함)
-   * **send_interval** 알람전송후 다시 전송될 최소한의 간격을 지정함. (기본값 3분)
-   * **send_day_max**  알람 전송 횟수를 하루 최대 횟수 설정. (SMS, Email, Slack 등등)
-   * **sender_id**     해당 알람을 전송 대상 목록이 정의된 ID 값
-   * **seq**           화면상에서는 보이지 않음.  alert 내용을 수정하거나 삭제할때 반드시 필요 함.  만약에 POST 상태에서 seq 값이 없을 경우에는 추가 등록처리 된다.
-   
-   :queryparam string hid: * **(선택)** host-id
-      * 미입력시 default는 ``None``. (api-key에 등록된 서버 전체 출력)
-
-   :resheader Content-Type: json만을 지원
-   :statuscode 200: no error
-   :statuscode 204: 해당 데이터가 없음
-   :statuscode 400: 요청 파라미터 오류
-   :statuscode 401: Token이 expire되거나, 올바르지 않음
-   :statuscode 405: 내부 서버 오류
-
-
-
-
-
-.. _post_logs_alert:
-
-.. http:post:: /api/logs/api-key/alert
-
-   * <api-key> 로그에 새로운 alert 정보 추가 및 변경하기
-
-   **요청 예**:
-
-   .. sourcecode:: http
-
-      POST /api/logs/7E717E82ED7FB134/alert HTTP/1.1
-      Host: example.com
-      Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
-      body: 추가,수정 정보
-
-      {
-        "APPLOG": [
-          {
-            "appname": "kinx-agent",
-            "detect_count": 3,
-            "hostname": "test-dev",
-            "msg_express": "Metric & Send",
-            "send_day_max": 3,
-            "send_interval": 180,
-            "sender_id": 1,
-            "seq": 5
-          }
-        ],
-        "SYSLOG": [
-          {
-            "appname": "influxd",
-            "detect_count": 10,
-            "hostname": "kde-r1-dev",
-            "msg_express": "POST & Next",
-            "send_day_max": 3,
-            "send_interval": 180,
-            "sender_id": 1,
-            "seq": 1,
-            "severity": "debug 이상"
-          }
-        ]
       }
 
 
@@ -519,6 +527,8 @@ API Contents
         "message": "OK"
       }
 
+   :queryparam int group_id: * **(필수)** 호스트 그룹ID
+
    :resheader Content-Type: json만을 지원
    :statuscode 200: no error
    :statuscode 204: 해당 데이터가 없음
@@ -530,9 +540,9 @@ API Contents
 
 
 
-.. _delete_logs_alert:
+.. _delete_logs_alerts:
 
-.. http:delete:: /api/logs/api-key/alert
+.. http:delete:: /api/logs/api-key/alerts
 
    * <api-key> 로그에 기존 alert 정보 삭제하기
 
@@ -540,26 +550,30 @@ API Contents
 
    .. sourcecode:: http
 
-      DELETE /api/logs/7E717E82ED7FB134/alert HTTP/1.1
+      DELETE /api/logs/7E717E82ED7FB134/alerts?group_id=1 HTTP/1.1
       Host: example.com
       Authorization: Basic eyJhbGciOiJIUzI1NiIsImV4cCI6MTU4NjIyNDMwMywiaWF0IjoxNTg2MjIzNzAzfQ.eyJ1c2VybmFtZSI6InRlcmF4In0.TxW3-HtKBOqJcDgS8gxGykdCP7GnZuVbRSD5UBzVyXw
       body: 삭제정보
 
       {
-        "SYSLOG": [
-          {
+        "hosts":["BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE"],
+        "alerts": {
+          "SYSLOG": [
+            {
             "appname": "influxd",
-            "detect_count": 10,
+            "detect_count": 5,
             "hostname": "kde-r1-dev",
             "msg_express": "POST & Next",
             "send_day_max": 3,
             "send_interval": 180,
             "sender_id": 1,
             "seq": 1,
-            "severity": "debug 이상"
-          }
-        ]
+            "severity": "debug"
+            }
+          ]
+        }
       }
+
 
    **응답 예**:
 
