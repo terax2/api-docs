@@ -248,7 +248,10 @@ API Contents
             "return_type": "string",
             "send_day_max": 3,
             "send_interval": 180,
-            "sender_id": 1
+            "sender_group": {
+              "id": 1,
+              "name": "기본발송"
+            }
           },
           {
             "custom_id": 2,
@@ -261,7 +264,10 @@ API Contents
             "return_type": "value",
             "send_day_max": 3,
             "send_interval": 180,
-            "sender_id": 1
+            "sender_group": {
+              "id": 1,
+              "name": "기본발송"
+            }
           },
           {
             "custom_id": 3,
@@ -274,7 +280,10 @@ API Contents
             "return_type": "value",
             "send_day_max": 3,
             "send_interval": 180,
-            "sender_id": 1
+            "sender_group": {
+              "id": 1,
+              "name": "기본발송"
+            }
           },
           {
             "custom_id": 4,
@@ -287,7 +296,10 @@ API Contents
             "return_type": "value",
             "send_day_max": 3,
             "send_interval": 180,
-            "sender_id": 1
+            "sender_group": {
+              "id": 1,
+              "name": "기본발송"
+            }
           },
           {
             "custom_id": 618768,
@@ -300,7 +312,10 @@ API Contents
             "return_type": "string",
             "send_day_max": 3,
             "send_interval": 180,
-            "sender_id": 1
+            "sender_group": {
+              "id": 1,
+              "name": "기본발송"
+            }
           }
         ]
       }

@@ -400,7 +400,10 @@ API Contents
                "msg_express": "Metric & Test",
                "send_day_max": 3,
                "send_interval": 180,
-               "sender_id": 1,
+               "sender_group": {
+                  "id": 1,
+                  "name": "기본발송"
+               },
                "seq": 2
             },
             {
@@ -411,7 +414,10 @@ API Contents
                "msg_express": "Metric & Send",
                "send_day_max": 3,
                "send_interval": 180,
-               "sender_id": 1,
+               "sender_group": {
+                  "id": 1,
+                  "name": "기본발송"
+               },
                "seq": 4
             },
             {
@@ -422,7 +428,10 @@ API Contents
                "msg_express": "Metric & Send",
                "send_day_max": 3,
                "send_interval": 180,
-               "sender_id": 1,
+               "sender_group": {
+                  "id": 1,
+                  "name": "기본발송"
+               },
                "seq": 5
             }
           ],
@@ -435,7 +444,10 @@ API Contents
                "msg_express": "POST & Next",
                "send_day_max": 3,
                "send_interval": 180,
-               "sender_id": 1,
+               "sender_group": {
+                  "id": 1,
+                  "name": "기본발송"
+               },
                "seq": 1,
                "severity": "debug"
             }
