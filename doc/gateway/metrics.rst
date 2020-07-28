@@ -61,6 +61,7 @@ API Contents
               "agent": "Online",
               "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
               "hostname": "kde-r1-dev",
+              "interval": 30,
               "last_date": "2020-06-23T15:47:00+09:00",
               "last_value": {
                 "cpu": 0.9,
@@ -79,6 +80,7 @@ API Contents
               "agent": "Online",
               "hid": "CCA11FCF-87FC-4F0B-A1C0-E37C586CE6B7",
               "hostname": "test-dev",
+              "interval": 30,
               "last_date": "2020-06-23T15:46:39+09:00",
               "last_value": {
                 "cpu": 0,
@@ -97,6 +99,7 @@ API Contents
               "agent": "Online",
               "hid": "CB7A2A6E-102A-414C-8DBB-80AFCDC8C4FD",
               "hostname": "kde-r1-dev2",
+              "interval": 30,
               "last_date": "2020-06-23T15:46:31+09:00",
               "last_value": {
                 "cpu": 0.4,

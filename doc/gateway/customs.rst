@@ -15,11 +15,11 @@ API List
 +-----------------------------------------------------------------+-------------------------------------------------------+
 |:ref:`DELETE /api/customs/hid/scripts <delete_customs_scripts>`  |<hid>에 설정된 Customs Scripts 정보 삭제 하기          |
 +-----------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`GET /api/customs/api-key/alert <get_customs_alerts>`       |<api-key>에 설정된 Customs alert 정보 얻기             |
+|:ref:`GET /api/customs/api-key/alerts <get_customs_alerts>`      |<api-key>에 설정된 Customs alert 정보 얻기             |
 +-----------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`POST /api/custom/api-key/alert <post_customs_alerts>`      |<api-key>에 설정된 Customs alert 정보 추가 및 변경하기 |
+|:ref:`POST /api/custom/api-key/alerts <post_customs_alerts>`     |<api-key>에 설정된 Customs alert 정보 추가 및 변경하기 |
 +-----------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`DELETE /api/customs/api-key/alert <delete_customs_alerts>` |<api-key>에 설정된 Customs alert 정보 삭제하기         |
+|:ref:`DELETE /api/customs/api-key/alerts <delete_customs_alerts>`|<api-key>에 설정된 Customs alert 정보 삭제하기         |
 +-----------------------------------------------------------------+-------------------------------------------------------+
 
 

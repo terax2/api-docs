@@ -15,11 +15,11 @@ API List
 +------------------------------------------------------------+-------------------------------------------------------+
 |:ref:`GET /api/logs/api-key/logs/aggr <get_logs_aggr>`      |<api-key/<logs>/<aggr> 로 등록된 호스트들의 로그 집계  |
 +------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`GET /api/logs/api-key/alert <get_logs_alerts>`        |<api-key> 로그에 설정된 alert 정보 얻기                |
+|:ref:`GET /api/logs/api-key/alerts <get_logs_alerts>`       |<api-key> 로그에 설정된 alert 정보 얻기                |
 +------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`POST /api/logs/api-key/alert <post_logs_alerts>`      |<api-key> 로그에 새로운 alert 정보 추가 및 변경하기    |
+|:ref:`POST /api/logs/api-key/alerts <post_logs_alerts>`     |<api-key> 로그에 새로운 alert 정보 추가 및 변경하기    |
 +------------------------------------------------------------+-------------------------------------------------------+
-|:ref:`DELETE /api/logs/api-key/alert <delete_logs_alerts>`  |<api-key> 로그에 기존 alert 정보 삭제하기              |
+|:ref:`DELETE /api/logs/api-key/alerts <delete_logs_alerts>` |<api-key> 로그에 기존 alert 정보 삭제하기              |
 +------------------------------------------------------------+-------------------------------------------------------+
 
 
