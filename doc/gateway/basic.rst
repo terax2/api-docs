@@ -193,16 +193,17 @@ API Contents
       Content-Type: application/json
 
       {
-        "7E717E82ED7FB134": {
-          "기본그룹": {
+        "7E717E82ED7FB134": [
+          {
             "group_id": 1,
+            "group_name": "기본그룹_수정",
             "hosts": [
               {
                 "agent_status": "Online",
                 "hid": "BA498C9B-5C8C-4881-A4A6-6FE9074BB8DE",
                 "hostname": "kde-r1-dev",
                 "server_status": "Normal",
-                "service": "Y",
+                "service": "Online",
                 "system": "Linux"
               },
               {
@@ -210,7 +211,7 @@ API Contents
                 "hid": "CCA11FCF-87FC-4F0B-A1C0-E37C586CE6B7",
                 "hostname": "test-dev",
                 "server_status": "Normal",
-                "service": "Y",
+                "service": "Online",
                 "system": "Linux"
               },
               {
@@ -218,12 +219,12 @@ API Contents
                 "hid": "CB7A2A6E-102A-414C-8DBB-80AFCDC8C4FD",
                 "hostname": "kde-r1-dev2",
                 "server_status": "Normal",
-                "service": "Y",
+                "service": "Online",
                 "system": "Linux"
               }
             ]
           }
-        }
+        ]
       }
 
 
