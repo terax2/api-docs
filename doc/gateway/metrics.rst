@@ -66,7 +66,7 @@ API Contents
               "last_value": {
                 "cpu": 0.9,
                 "disk": 17.45,
-                "loadavg": 5.5,
+                "system": 5.5,
                 "mem": 63.48,
                 "network": {
                   "inbps": 20528,
@@ -74,7 +74,8 @@ API Contents
                 }
               },
               "os_system": "Linux",
-              "status": "Normal"
+              "status": "Warning",
+              "status_category": "SYSTEM"
             },
             {
               "agent": "Online",
@@ -85,7 +86,7 @@ API Contents
               "last_value": {
                 "cpu": 0,
                 "disk": 9.4,
-                "loadavg": 0,
+                "system": 0,
                 "mem": 2.95,
                 "network": {
                   "inbps": 184,
@@ -93,7 +94,8 @@ API Contents
                 }
               },
               "os_system": "Linux",
-              "status": "Normal"
+              "status": "Normal",
+              "status_category": null
             },
             {
               "agent": "Online",
@@ -104,7 +106,7 @@ API Contents
               "last_value": {
                 "cpu": 0.4,
                 "disk": 2.2,
-                "loadavg": 0,
+                "system": 0,
                 "mem": 7.06,
                 "network": {
                   "inbps": 23040,
@@ -112,10 +114,16 @@ API Contents
                 }
               },
               "os_system": "Linux",
-              "status": "Normal"
+              "status": "Normal",
+              "status_category": null
             }
           ],
           "page": "1/1",
+          "static": {
+            "Alert": 0,
+            "Normal": 2,
+            "Warning": 1
+          },
           "total": 3
         }
       }

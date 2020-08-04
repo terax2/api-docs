@@ -223,6 +223,11 @@ API Contents
                 "system": "Linux"
               }
             ]
+          },
+          {
+            "group_id": 2,
+            "group_name": "그룹2",
+            "hosts": []
           }
         ]
       }
