@@ -75,7 +75,9 @@ API Contents
               },
               "os_system": "Linux",
               "status": "Warning",
-              "status_category": "SYSTEM"
+              "status_category": {
+                "system": "2"
+              }
             },
             {
               "agent": "Online",
@@ -95,7 +97,7 @@ API Contents
               },
               "os_system": "Linux",
               "status": "Normal",
-              "status_category": null
+              "status_category": {}
             },
             {
               "agent": "Online",
@@ -115,7 +117,7 @@ API Contents
               },
               "os_system": "Linux",
               "status": "Normal",
-              "status_category": null
+              "status_category": {}
             }
           ],
           "page": "1/1",
@@ -130,6 +132,7 @@ API Contents
 
    * **last_date**  에이전트에서 마지막으로 수집된 메트릭 시간
    * **last_value** 에이전트에서 마지막으로 수집된 메트릭 5가지 값 (CPU:%, disk:%, loadavg:%, mem:%, network:bps)
+   * **status_category** status 값이 Normal 이 아닐때 Category 별 status 를 표시 함. (Normal 이 아닌 것만 표시됨)
 
    :queryparam int count: * **(선택)** 페이지당 출력 갯수
       * 미입력시 default는 ``20``.
