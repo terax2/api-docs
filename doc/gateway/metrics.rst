@@ -21,7 +21,7 @@ API List
 +------------------------------------------------------------------+------------------------------------------------------------+
 |:ref:`GET /api/metrics/hid/last <get_metrics_last>`               |<hid> 값으로 마지막 값 얻기                                 |
 +------------------------------------------------------------------+------------------------------------------------------------+
-|:ref:`GET /api/metrics/hid/metric <get_metrics_dps>`              |<hid>/<metric> 수집된 해당 metric 값 얻기                   |
+|:ref:`GET /api/metrics/hid/<metric> <get_metrics_dps>`            |<hid>/<metric> 수집된 해당 metric 값 얻기                   |
 +------------------------------------------------------------------+------------------------------------------------------------+
 |:ref:`GET /api/metrics/hid/proc/last <get_metrics_proc_last>`     |<hid> process 별 metric 마지막 값 얻기                      |
 +------------------------------------------------------------------+------------------------------------------------------------+
@@ -886,7 +886,7 @@ API Contents
 
 .. _get_metrics_dps:
 
-.. http:get:: /api/metrics/hid/metric
+.. http:get:: /api/metrics/hid/<metric>
 
    * <hid>/<metric> 수집된 해당 metric 값 얻기.
 
